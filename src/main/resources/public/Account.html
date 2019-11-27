@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>QuestCraft - Home</title>
-      <link rel="stylesheet" type="text/css" href="style.css">
-      <script src="Cookies.js"></script>
-			<script src="DOCLoader.js"></script>
-   </head>
-   <body>
-      <div class="banner">
-         <div id="containinglogoDiv">
-            <img id="Logo" src="Logos/QuestCraftLogo.png" alt="Logo"/>
+
+<head>
+	<title>QuestCraft - Home</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="Cookies.js">
+
+	</script>
+	<script src="DOCLoader.js">
+
+	</script>
+</head>
+
+<body>
+	<div class="banner">
+		<div id="containinglogoDiv">
+			<img id="Logo" src="Logos/QuestCraftLogo.png" alt="Logo"/>
             <span class="logoText">QuestCraft</span>
             <div id = "DivH2">IP = '192.99.182.8:25684'<button id="copyText" onclick="copyText('how are you?', 'DivH2')">Copy</button></div>
          </div>
@@ -31,10 +37,20 @@
 
 				<!--Profile Setup-->
 				<div id= "profile">
-					<img src="Logos/DefaultProfilePic.png" alt="Profile Picture" />
+					
 					<!--3 levels of Headings-->
-					<div id="AccountText">
-					<h1>Account Name**</h1>
+					<table id="profileInfo">
+						<tr>
+							<th><h1>Current Profile Picture</h1></th>
+							<th><h1>Account Name</h1></th>
+						</tr>
+						<tr>
+							<td>
+								
+								<img src="Logos/DefaultProfilePic.png" alt="Profile Picture" />
+							</td>
+							<td>
+								
 					<h2>About</h2>
 					<h3>Account Info</h3>
 					<!--Setup For JS to fill in-->
@@ -53,7 +69,11 @@
 							<input type="submit" value="Add Desc">
 						</form>
 					</p>
-					</div>
+							<h2>Settings</h2>
+							</td>
+
+						</tr>
+					</table>
 				</div>
 				<!--Footer-->
       <footer>

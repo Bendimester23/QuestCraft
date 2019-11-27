@@ -9,7 +9,7 @@ let email;
 
 function checkForPark() {
 	console.log(email);
-	if (email.value == "jlpark@seattleschools.org") {
+	if (email.value) {
 		return true;
 	} else {
 		return false;
@@ -19,7 +19,6 @@ function checkForPark() {
 function logOut() {
 	console.log("logging out");
 	setCookie("isSignedIn", false);
-	setCookie("isPark", false);
 }
 
 function submitClicked() {
@@ -57,10 +56,6 @@ function allFieldsFilled() {
 			"gameUser": inGameUser.value,
 			"email": email.value,
 			"createdOn": today.getMonth()+1 + "-" + today.getDate() + "-" + today.getFullYear(),
-			"isPark": checkForPark(),
-		}
-		if (checkForPark() == true) {
-			setCookie("isPark", true);
 		}
 		console.log(accountData);
 		setCookie("isSignedIn", true);

@@ -17,6 +17,7 @@ body {
 	font-size: 15pt;
 }
 #Logo {
+
 	margin: 5px;
 	float: left;
 	height: 80px;
@@ -68,7 +69,7 @@ body {
 
 .nav ul li {
  float: left; 
-  
+  min-width: 40px;
   
 }
 .nav ul li a {
@@ -374,12 +375,6 @@ right: 0%;
 AccountText {
 	width: 60vh;
 }
-#PasswordsDontMatch {
-	text-align: center;
-	color: red;
-	font-size: 2vh;
-	visibility: hidden;
-}
 .portfolioTopic h1 {
 	text-align: center;
 }
@@ -396,10 +391,7 @@ AccountText {
 text-align: center;
 	font-size: 20pt;
 }
-#Bottom {
-	margin-top: 50vh;
 
-}
 #logOut {
 	text-align: center;
 }
@@ -420,4 +412,45 @@ text-align: center;
 #loader {
 	visibility: hidden;
 }
-.game 
+.game h1 {
+	text-align: center;
+
+}
+#actualGames  {
+	text-align: center;
+	display: none;
+}
+.game {
+		background-color: #505050;
+	width: 60vh;
+	margin: 20px auto;
+	border: solid #303030 10px;
+}
+#thumbnail {
+	display: block;
+	border: solid #303030 10px;
+	border-radius: 20px;
+	margin: 0 auto;
+	width: 50vh;
+}
+.game a {
+	display: block;
+margin: 20px auto;
+text-align: center;
+	padding: 5px 20px;
+	background-color: darkgreen;
+	font-size: 30px;
+	width: 10vh;
+	border: solid #303030 5px;
+	transition: 0.25s ease;
+	color: black;
+}
+.game a:hover {
+
+	background-color: #004d00;
+	
+}
+
+#profileInfo {
+	max-width: 100vh;
+}

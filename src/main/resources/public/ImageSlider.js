@@ -48,6 +48,12 @@ function next() {
    
 		changeImage()
 }
+// function preLoadImgs() {
+// 	for (let current = 0; current <  Object.keys(images).length; current++) {
+// 		let img = new Image();
+// 		img.src = "SliderImages/" + Object.keys(images)[current]; + ".png"
+// 	}
+// }
 //prev functin
 function prev() {
 	imagePath = document.getElementById("SlidingImage");
@@ -62,6 +68,7 @@ function prev() {
 }
 //changeing image after click
 function changeImage() {
+	//preLoadImgs();
 	let imagesKey = Object.keys(images)[currentPic];
 	const setImage = "SliderImages/" + imagesKey + ".png"
 	imageLicense.innerHTML = images[imagesKey];
