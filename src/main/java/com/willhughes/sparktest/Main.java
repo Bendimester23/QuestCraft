@@ -7,6 +7,6 @@ import static spark.Spark.staticFiles;
 public class Main {
     public static void main (String [] args) {
         staticFiles.location("/public");
-        get("/hello", (request, response) -> "Hello there you world");
+        get("/hello", (request, response) -> "Hello there ");
     }
 }
