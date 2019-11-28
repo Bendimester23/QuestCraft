@@ -3,11 +3,10 @@ function setCookie(name, value) {
 }
 
 function getCookie(name) {
-	const docCookie = document.cookie;
+const docCookie = document.cookie;
 
 	if (docCookie != null) {
-	
-		const cookieArray = docCookie.split(";");
+  const cookieArray = docCookie.split(";");
 
 		for (let cookie = 0; cookie < cookieArray.length; cookie++) {
 			
