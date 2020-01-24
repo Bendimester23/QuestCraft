@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <script src="Copy.js"></script>
     <script src="signUp.js"></script>
-
+<title>QuestCraft - Sign Up</title>
 		<script src="Cookies.js"></script>
 			<script src="DOCLoader.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -33,21 +34,21 @@
 		<!--The form-->
     <div class = "form" id="formValidation">
         <h1>Sign Up</h1>
-      <form action="OnSignUp.html">
+      <form action="#" return false">
 				<!--Username-->
           <label for="username">Username*</label>
 
-          <input  type="text" name = "username"   required id="username">
+          <input  type="text" name = "username"   required id="username" maxlength="20">
 
         <hr id = "smallhr">
 					<!--Password-->
           <label for="password">Password*</label>
-          <input  type="password" name = "password" required minlength="6" maxlength="10" id="password">
+          <input  type="password" name = "password" required minlength="6" maxlength="128" id="password">
 
         <hr id = "smallhr">
 				<!--Validating Password-->
           <label for="repassword">Check Password*</label>
-          <input  type="password" name = "repassword" required minlength="6" maxlength="10" id="repassword">
+          <input  type="password" name = "repassword" required minlength="6" maxlength="20" id="repassword">
 						
         <hr id = "smallhr">
 			
@@ -74,7 +75,7 @@
 						<label for="TermsAndService">I agree to the <a href="Rules.html">Terms of service</a> in the QuestCraft Community</label>
 					</div>
 					<!--Submitting-->
-          <input type = "submit" id = "submit" onclick="submitClicked()" value="Sign Up">
+          <button id = "submit" onclick="submitClicked()">Sign Up</button>
         </form>
     </div>
 	<!--Footer-->

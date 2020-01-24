@@ -16,13 +16,14 @@ public class AccountSessions {
         return newUUID;
     }
     public Boolean checkUUID(String uuid) {
+
         if (uuidStorage.get(uuid) != null) {
             return true;
         }
         return false;
     }
     public Account getUserInfo(String uuid) throws SQLException, AccountException {
-        if (uuidStorage.get(uuid) != null) {
+        if (checkUUID(uuid)) {
 
                 return accountUtil.getAccountByUser(uuidStorage.get(uuid));
 

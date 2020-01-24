@@ -1,15 +1,20 @@
 package net.questcraft;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import javax.security.auth.login.AccountException;
 import java.sql.SQLException;
 
+import static com.fasterxml.jackson.databind.SerializationFeature.WRAP_ROOT_VALUE;
 import static spark.Spark.*;
 
 public class Main {
 
     public static void main (String [] args) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(WRAP_ROOT_VALUE, true);
         AccountSessions accountSessions = AccountSessions.getInstance();
         AccountUtil accountUtil = AccountUtil.getInstance();
         staticFiles.location("/public");
@@ -21,8 +26,8 @@ public class Main {
             String email = request.queryParams("email");
             String mcUser = request.queryParams("mcUser");
             accountUtil.createAccount(username, password, email, mcUser);
-
-            return "OK";
+            String uuid = accountSessions.getNewUUID(username);
+            return objectMapper.writeValueAsString(uuid);
         });
         get("/logIn", (request, response) -> {
             String username = request.queryParams("username");
@@ -30,18 +35,32 @@ public class Main {
 
             if (accountUtil.verifyAccount(username, password)) {
                 String uuid = accountSessions.getNewUUID(username);
-                return uuid;
+                return objectMapper.writeValueAsString(uuid);
+            } else {
+                System.out.println("sending errorclass");
+                ErrorClass errorClass = new ErrorClass("Could not Verify User and Password", 3);
+                 System.out.println(objectMapper.writeValueAsString(errorClass));
+                return objectMapper.writeValueAsString(errorClass);
             }
-            return false;
         });
         get("/getInfo", (request, response) -> {
             String uuid = request.queryParams("UUID");
-            if (accountSessions.getUserInfo(uuid) != null) {
-                return accountSessions.getUserInfo(uuid);
-            } else {
-                return new ErrorClass("Account DataBase Malfunction, Please Try Again", 2);
-            }
+
+                try {
+                    if (accountSessions.checkUUID(uuid)) {
+                        return accountSessions.getUserInfo(uuid);
+                    } else {
+                        return new ErrorClass( "Could not Find Account UUID in Lists, Please Try Again",3);
+                    }
+                } catch (SQLException e) {
+                    return new ErrorClass("DataBase malfunction, Please Try Again Later", 1);
+                } catch (AccountException e) {
+                    return new ErrorClass("Could not Find Account UUID in Lists, Please Try Again", 2);
+                }
         });
+        get("/verify", (request, response) -> accountSessions.checkUUID(request.queryParams("UUID")));
+
+
         options("/*",
                 (request, response) -> {
 

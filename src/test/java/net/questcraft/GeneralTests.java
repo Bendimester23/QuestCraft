@@ -25,7 +25,7 @@ public class GeneralTests {
     @Test
     public void createAccount() {
         AccountUtil accountUtil = AccountUtil.getInstance();
-        accountUtil.createAccount("Gwefnery", "SnarkyPuupy4ever", "", "");
+        //accountUtil.createAccount("Gwefnery", "SnarkyPuupy4ever", "", "");
     }
     @Test
     public void UUIDTest() throws AccountException, SQLException {

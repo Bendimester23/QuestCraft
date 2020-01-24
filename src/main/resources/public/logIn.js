@@ -19,7 +19,14 @@ function checkLogIn() {
 
                 createDialogue("Invalid User", message, code);
             } else if (Object.keys(response)[0] == "String") {
-                window.location = "Account.html"
+                const uuid = response[Object.keys(response)[0]];
+                console.log(uuid);
+                setCookie("UUID", uuid);
+                console.log(getCookie("UUID"));
+                 window.location = "Account.html"
+
+
+
             } else {
             //dont even know what happened
             }

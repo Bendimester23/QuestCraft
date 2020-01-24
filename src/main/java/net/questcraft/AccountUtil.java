@@ -15,14 +15,12 @@ public class AccountUtil {
         }
         return instance;
     }
-    public void createAccount(String username, String password, String email, String inGameUser) {
+    public void createAccount(String username, String password, String email, String inGameUser) throws SQLException {
         Account account = new Account(username, password, inGameUser, email);
 
-        try {
-            accountDAO.createAccount(account);
-        } catch (SQLException ex) {
 
-        }
+            accountDAO.createAccount(account);
+
     }
     public Account getAccountByUser(String user) throws SQLException {
         return accountDAO.getAccountByUser(user);

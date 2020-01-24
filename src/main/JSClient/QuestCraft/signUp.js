@@ -52,9 +52,32 @@ function allFieldsFilled() {
 			"email": email.value,
 			"createdOn": today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear(),
 		}
-		console.log(accountData);
-		setCookie("isSignedIn", true);
-		
+
+
+		const xhttp = new XMLHttpRequest();
+        		xhttp.onreadystatechange = function () {
+        			if (this.readyState == 4 && this.status == 200) {
+        			console.log(this.responseText);
+
+        			const response = JSON.parse(this.responseText);
+                    if (Object.keys(response)[0] == "ErrorClass") {
+                        const message = response[Object.keys(response)[0]].message
+                        const code = response[Object.keys(response)[0]].errorCode;
+
+                        createDialogue("Invalid User", message, code);
+                    } else if (Object.keys(response)[0] == "String") {
+                        const uuid = response[Object.keys(response)[0].uuid];
+                        console.log(uuid);
+                        setCookie("UUID", true);
+                    } else {
+                    //dont even know what happened
+                    }
+
+        		    }
+        		};
+
+        		xhttp.open("GET",  getPath() + "/signup?username=" + username.value + "&password=" + password.value, true);
+        		xhttp.send();
 
 	}
 

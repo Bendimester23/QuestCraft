@@ -6,4 +6,5 @@ function copyToClip(str) {
 	textA.select();
 	document.execCommand("copy");
 	document.body.removeChild(textA);
+	alert("'" + str + "' was copied your clipboard");
 }
