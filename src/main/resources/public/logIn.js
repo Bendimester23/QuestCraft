@@ -23,7 +23,7 @@ function checkLogIn() {
                 console.log(uuid);
                 setCookie("UUID", uuid);
                 console.log(getCookie("UUID"));
-                 window.location = "Account.html"
+                 window.location = "Account.html";
 
 
 

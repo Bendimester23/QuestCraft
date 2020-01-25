@@ -13,8 +13,9 @@ function logOut() {
 }
 
 function submitClicked() {
+    console.log("submit hit");
 	inGameUser = document.getElementById("InGameUser");
-	email = document.getElementById("emailField");
+	email = document.getElementById("email");
 	username = document.getElementById("username");
 	password = document.getElementById("password");
 	checkPassword = document.getElementById("repassword");
@@ -36,15 +37,15 @@ function submitClicked() {
 
 function allFieldsFilled() {
 	if (username.value != "" && password.value != "" && checkPassword.value != "" && termOfService.checked == true) {
-		const today = new Date();
-
-		accountData = {
-			"username": username.value,
-			"password": password.value,
-			"gameUser": inGameUser.value,
-			"email": email.value,
-			"createdOn": today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear(),
-		}
+//		const today = new Date();
+//
+//		accountData = {
+//			"username": username.value,
+//			"password": password.value,
+//			"gameUser": inGameUser.value,
+//			"email": email.value,
+//			"createdOn": today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear(),
+//		}
 
 
 		const xhttp = new XMLHttpRequest();
@@ -57,19 +58,20 @@ function allFieldsFilled() {
                         const message = response[Object.keys(response)[0]].message
                         const code = response[Object.keys(response)[0]].errorCode;
 
-                        createDialogue("Invalid User", message, code);
+                        createDialogue("Failed to Create Account", message, code);
                     } else if (Object.keys(response)[0] == "String") {
-                        const uuid = response[Object.keys(response)[0].uuid];
+                        const uuid = response[Object.keys(response)[0]];
                         console.log(uuid);
-                        setCookie("UUID", true);
+                        setCookie("UUID", uuid);
+                         window.location = "Account.html";
                     } else {
-                    //dont even know what happened
+
                     }
 
         		    }
         		};
 
-        		xhttp.open("GET",  getPath() + "/signup?username=" + username.value + "&password=" + password.value, true);
+        		xhttp.open("GET",  getPath() + "/signup?username=" + username.value + "&password=" + password.value + "&email=" + email.value + "&mcUser=" + inGameUser.value, true);
         		xhttp.send();
 
 	}

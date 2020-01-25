@@ -54,20 +54,13 @@
 			
           <label for="username">In Game Username</label>
 					<!--Creating a select, going to automate it-->
-          <select name = "users" id = "InGameUser">
-            <option value="default" selected></option>
-            <option value="Chestly">Chestly</option>
-            <option value="roblocow">roblocow</option>
-            <option value="Roblocow6">Roblocow6</option>
-            <option value="BobSled001">BobSled001</option>
-            <option value="Dj_Sparkle_pig">Dj_Sparkle_pig</option>
-            <option value="TheMedicIsASpy">TheMedicIsASpy</option>
-          </select>
+          <input type="text" name="mcUser" id = "InGameUser" minlength="3" maxlength="16">
+
           
         <hr id = "smallhr">
 				<!--Email-->
           <label for="email">Email</label>
-          <input  type="text" name = "email" id="emailField">
+          <input  type="text" name = "email" id="email">
         <hr id = "smallhr">
 				<!--Agreeing To Rules-->
 					<div id="TermsofService">
@@ -75,8 +68,9 @@
 						<label for="TermsAndService">I agree to the <a href="Rules.html">Terms of service</a> in the QuestCraft Community</label>
 					</div>
 					<!--Submitting-->
-          <button id = "submit" onclick="submitClicked()">Sign Up</button>
+
         </form>
+        <button id = "submit" onclick="submitClicked()">Sign Up</button>
     </div>
 	<!--Footer-->
       <footer>

@@ -25,9 +25,14 @@ public class Main {
             String password = request.queryParams("password");
             String email = request.queryParams("email");
             String mcUser = request.queryParams("mcUser");
-            accountUtil.createAccount(username, password, email, mcUser);
-            String uuid = accountSessions.getNewUUID(username);
-            return objectMapper.writeValueAsString(uuid);
+            try {
+                accountUtil.createAccount(username, password, email, mcUser);
+                System.out.println("created account");
+                String uuid = accountSessions.getNewUUID(username);
+                return objectMapper.writeValueAsString(uuid);
+            } catch (SQLException ex) {
+                return new ErrorClass("DataBase Malfunction, Please try again later", 1);
+            }
         });
         get("/logIn", (request, response) -> {
             String username = request.queryParams("username");
