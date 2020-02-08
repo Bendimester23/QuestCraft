@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <script src="popupText.js"></script>
       <script src="Copy.js"></script>
     <script src="signUp.js"></script>
 <title>QuestCraft - Sign Up</title>
@@ -32,9 +33,9 @@
       </ul>
     </div>
 		<!--The form-->
-    <div class = "form" id="formValidation">
+    <div>
         <h1>Sign Up</h1>
-      <form action="#" return false">
+      <form class="form">
 				<!--Username-->
           <label for="username">Username*</label>
 
@@ -68,7 +69,7 @@
 						<label for="TermsAndService">I agree to the <a href="Rules.html">Terms of service</a> in the QuestCraft Community</label>
 					</div>
 					<!--Submitting-->
-
+          <input type="submit" class="hiddenSubmit"/>
         </form>
         <button id = "submit" onclick="submitClicked()">Sign Up</button>
     </div>

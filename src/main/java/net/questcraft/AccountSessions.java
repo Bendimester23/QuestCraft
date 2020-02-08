@@ -16,19 +16,22 @@ public class AccountSessions {
         return newUUID;
     }
     public Boolean checkUUID(String uuid) {
-
+        System.out.println("checking UUID: " + uuid);
         if (uuidStorage.get(uuid) != null) {
+            System.out.println("Found UUid in storage");
             return true;
         }
         return false;
     }
     public Account getUserInfo(String uuid) throws SQLException, AccountException {
+        System.out.println("getUserInfo Called");
         if (checkUUID(uuid)) {
-
-                return accountUtil.getAccountByUser(uuidStorage.get(uuid));
+            System.out.println("found UUid and getting info");
+            return accountUtil.getAccountByUser(uuidStorage.get(uuid));
 
 
         } else {
+            System.out.println("couldnt find UUId, threw accont EX");
             throw new AccountException();
         }
     }

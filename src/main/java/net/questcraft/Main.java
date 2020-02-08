@@ -20,28 +20,38 @@ public class Main {
         staticFiles.location("/public");
         get("/hello", (request, response) -> "HamBurger Test");
         get("/signup", (request, response) -> {
+            System.out.println("requested signup");
             System.out.println("made a account");
             String username = request.queryParams("username");
-            String password = request.queryParams("password");
+
+            String password = accountUtil.hashPassword(request.queryParams("password"));
+            System.out.println("the hashed password is: " + password);
             String email = request.queryParams("email");
             String mcUser = request.queryParams("mcUser");
             try {
-                accountUtil.createAccount(username, password, email, mcUser);
+                System.out.println("trying to make account");
+                accountUtil.createAccount(username, password, mcUser, email);
                 System.out.println("created account");
                 String uuid = accountSessions.getNewUUID(username);
+                System.out.println("returning uuid");
                 return objectMapper.writeValueAsString(uuid);
             } catch (SQLException ex) {
-                return new ErrorClass("DataBase Malfunction, Please try again later", 1);
+                System.out.println("caught SQL exeption, Exeption: " + ex.getMessage());
+                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
             }
         });
         get("/logIn", (request, response) -> {
+            System.out.println("tryed to login");
             String username = request.queryParams("username");
-            String password = request.queryParams("password");
-
+            String password = accountUtil.hashPassword(request.queryParams("password"));
+            System.out.println("got params");
             if (accountUtil.verifyAccount(username, password)) {
+                System.out.println("found user and password in database User: " + username + " Password: " + password);
                 String uuid = accountSessions.getNewUUID(username);
+                System.out.println("returned username");
                 return objectMapper.writeValueAsString(uuid);
             } else {
+                System.out.println("couldnt find user with password in databases");
                 System.out.println("sending errorclass");
                 ErrorClass errorClass = new ErrorClass("Could not Verify User and Password", 3);
                  System.out.println(objectMapper.writeValueAsString(errorClass));
@@ -49,19 +59,26 @@ public class Main {
             }
         });
         get("/getInfo", (request, response) -> {
+            System.out.println(" get info");
             String uuid = request.queryParams("UUID");
 
                 try {
+                    System.out.println("in try statement");
                     if (accountSessions.checkUUID(uuid)) {
-                        return accountSessions.getUserInfo(uuid);
+                        System.out.println("checking UUID");
+                        return objectMapper.writeValueAsString(accountSessions.getUserInfo(uuid));
                     } else {
-                        return new ErrorClass( "Could not Find Account UUID in Lists, Please Try Again",3);
+                        System.out.println("UUid wasnt in the list");
+                        return objectMapper.writeValueAsString(new ErrorClass( "Could not Find Account UUID in Lists, Please Try Again",3));
                     }
                 } catch (SQLException e) {
-                    return new ErrorClass("DataBase malfunction, Please Try Again Later", 1);
+                    System.out.println("Caught SQL exception, EX:" + e.getMessage());
+                    return objectMapper.writeValueAsString(new ErrorClass("DataBase malfunction, Please Try Again Later", 1));
                 } catch (AccountException e) {
-                    return new ErrorClass("Could not Find Account UUID in Lists, Please Try Again", 2);
+                    System.out.println("Got AccountEx Ex: " + e.getMessage());
+                    return objectMapper.writeValueAsString(new ErrorClass("Could not Find Account UUID in Lists, Please Try Again", 2));
                 }
+
         });
         get("/verify", (request, response) -> accountSessions.checkUUID(request.queryParams("UUID")));
 

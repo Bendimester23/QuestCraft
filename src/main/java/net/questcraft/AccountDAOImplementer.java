@@ -11,16 +11,17 @@ public class AccountDAOImplementer implements AccountDAO {
         Connection myConn;
 
 
-            myConn = DriverManager.getConnection(url, user, password);
-            Statement myStmt = myConn.createStatement();
-            ResultSet results = myStmt.executeQuery(query);
-            Account accountSet = new Account(
-               results.getString(1),
+        myConn = DriverManager.getConnection(url, user, password);
+        Statement myStmt = myConn.createStatement();
+        ResultSet results = myStmt.executeQuery(query);
+        results.next();
+        Account accountSet = new Account(
+                results.getString(1),
                 results.getString(2),
                 results.getString(3),
                 results.getString(4)
-             );
-            return accountSet;
+        );
+        return accountSet;
 
 
     }
@@ -46,7 +47,6 @@ public class AccountDAOImplementer implements AccountDAO {
         String update = "INSERT INTO webAccountInfo (username, password, mcUser, email) VALUES ('" + account.getUsername() + "', '" + account.getPassword() + "', '" + account.getInGameUser() + "', '" + account.getEmail() + "')";
         updateSQLDatabase(update);
     }
-
     @Override
     public boolean checkLogin(String user, String password) {
         String query = "select * from webAccountInfo where username = '" + user + "' And password = '" + password + "'" ;

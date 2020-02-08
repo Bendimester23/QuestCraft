@@ -10,7 +10,7 @@ public class ErrorClass {
     //SQLException: 1
     //AccountException: 2
     //Cant FInd uuid in list: 3
-
+    //js Response is null: 4
     public ErrorClass() {
     }
 
