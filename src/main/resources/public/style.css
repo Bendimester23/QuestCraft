@@ -534,3 +534,21 @@ text-align: center;
 input[type="submit"] {
 	visibility: hidden;
 }
+.openBoxButton:focus .openableBox {
+	height: auto;
+	width: auto;
+}
+.openBoxButton {
+	border: solid #505050 5px;
+	transition: 0.5s ease;
+	overflow: hidden;
+}
+
+.openableBox {
+	overflow: hidden;
+	width: 10vw;
+	height: 0px;
+	/* :hover {
+		background-color: #a6a6a6;
+	} */
+}
