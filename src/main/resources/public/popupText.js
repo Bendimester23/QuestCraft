@@ -35,4 +35,40 @@ function loadingOff() {
 function makeValidation(element, message) {
 
 }
-
+let openableElements = {};
+function openDialogue(height, itemKey, elementPath) {
+    const element = document.getElementById(elementPath);
+    if (openableElements.hasOwnProperty(itemKey) && !element.contains(document.activeElement)) {
+       
+        if (openableElements[itemKey]) {
+            element.style.height = "0px";
+            element.style.borderWidth = "0px";
+            openableElements[itemKey] = false;
+        } else {
+            element.style.height = height;
+			element.style.width = "auto";
+			element.style.borderWidth = "5px";
+            openableElements[itemKey] = true;
+        }
+    } else {
+        element.style.height = height;
+			element.style.width = "auto";
+			element.style.borderWidth = "5px";
+        openableElements[itemKey] = true;
+    }
+    const mouseDown = document.addEventListener("mousedown", function(event) {
+        
+        //console.log(event.clientX + ", " + event.clientY);
+        const elemRect = element.getBoundingClientRect();
+        const bodyRect = document.body.getBoundingClientRect();
+        // console.log(bodyRect.top + ", " + bodyRect.left);
+        // console.log(elemRect.top + ", " + elemRect.left);
+        if (elemRect.left > event.clientX || elemRect.right < event.clientX || elemRect.top > event.clientY || elemRect.bottom < event.clientY) {
+            element.style.height = "0px";
+			
+			element.style.borderWidth = "0px";
+            openableElements[itemKey] = false;
+            document.removeEventListener("mousedown", mouseDown);
+        }
+    });
+}

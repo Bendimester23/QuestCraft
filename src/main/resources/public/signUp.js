@@ -21,7 +21,7 @@ function submitClicked() {
 	password = document.getElementById("password");
 	checkPassword = document.getElementById("repassword");
 	termOfService = document.getElementById("TermsAndService");
-	
+	checkPassword.setCustomValidity("");
  	if (!form.checkValidity()) {
 		if (password.value != checkPassword.value) {
 			checkPassword.setCustomValidity("Passwords Dont Match");
@@ -49,6 +49,7 @@ function allFieldsFilled() {
 //			"createdOn": today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear(),
 //		}
 		loadingOn();
+		createDialogue("Creating Account", "We are signing you up! This may take a few seconds");
 		contactServer("signup", {username: username.value, password: password.value, email: email.value, mcUser: inGameUser.value}, function(response) {
 			loadingOff();
 			if (Object.keys(response)[0] == "ErrorClass") {

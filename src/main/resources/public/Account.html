@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<script src="Account.js"></script>
 	<script src="popupText.js"></script>
 	<script src="ImageSlider.js"></script>
 	<title>QuestCraft - Account</title>
@@ -20,8 +21,7 @@
 		<div id="containinglogoDiv">
 			<img id="Logo" src="Logos/QuestCraftLogo.png" alt="Logo" />
 			<span class="logoText">QuestCraft</span>
-			<div id="DivH2">IP = '192.99.182.8:25684'<button id="copyText"
-					onclick="copyText('how are you?', 'DivH2')">Copy</button></div>
+			<div id = "DivH2">IP = '192.99.182.8:25684'<button id="copyText" onclick="copyToClip('192.99.182.8:25684')">Copy</button></div>
 		</div>
 		<ul class="registerLink">
 
@@ -35,6 +35,7 @@
 			<li><a href="Rules.html" id="hiddenlink">Rules</a></li>
 			<li><a href="News.html" id="hiddenlink">News</a></li>
 			<li><a href="staff.html" id="hiddenlink">Staff</a></li>
+			<li><a href ="apply.html" id = "hiddenlink">Apply Now!</a></li>
 
 		</ul>
 	</div>
@@ -55,7 +56,7 @@
 			<tr>
 				<td>
 
-					<img src="Logos/DefaultProfilePic.png" alt="Profile Picture" title="Changable Pic Coming Soon" />
+					<img src="Logos/DefaultProfilePic.png" alt="Profile Picture" id="profilePicture" />
 				</td>
 				<td>
 
@@ -73,18 +74,66 @@
 
 
 					<h2>Settings</h2>
-					<h3>Email:</h3>
-					<button class="openBoxButton">Add/Change Email<br>
-						<div class="openableBox">
-							<form>
-								<label for="newEmail">Email:</label>
-								<input type="text" id="newEmail">
-							</form>
-							<button id="emailSubmit">Submit</button>
-						</div>
-					</button>
+					<button class="openBoxButton"
+						onclick="openDialogue('auto', 'changeEmail', 'changeEmailDiv')">Add/Change Email</button>
+					<div class="openableBox" id="changeEmailDiv">
+						<form>
+							<label for="newEmail">Email:</label>
+							<input type="email" id="newEmail" required>
+							<input type="submit" class="hiddenSubmit"/>
+						</form>
+						<button class="dialogueSubmit" onclick="changeEmail('newEmail')">Submit</button>
+					</div>
 
-					<hr id="smallHR">
+
+					<hr id="smallhr" class="floatLeft">
+					<button class="openBoxButton"
+					onclick="openDialogue('auto', 'changeUser', 'changeUserDiv')">Change Username</button>
+				<div class="openableBox" id="changeUserDiv">
+					<form>
+						<label for="newUser">User:</label>
+						<input type="text" id="newUser" required>
+						<input type="submit" class="hiddenSubmit"/>
+					</form>
+					<button class="dialogueSubmit" onclick="changeUserName('newUser')">Submit</button>
+				</div>
+
+
+				<hr id="smallhr" class="floatLeft">
+				<button class="openBoxButton"
+				onclick="openDialogue('auto', 'changePassword', 'changePasswordDiv')">Change Password</button>
+			<div class="openableBox" id="changePasswordDiv">
+				<form>
+					<label for="oldPassword">Old Password:</label>
+					<input type="password" id="oldPassword" required minlength="6" maxlength="128">
+					<hr id="smallhr">
+					<label for="newPassword">New Password:</label>
+					<input type="password" id="newPassword" required minlength="6" maxlength="128">
+					<hr id="smallhr">
+					<label for="confirmPassword">Confirm Password:</label>
+					<input type="password" id="confirmPassword" required minlength="6" maxlength="128">
+					<input type="submit" class="hiddenSubmit"/>
+				</form>
+				<button class="dialogueSubmit" id="dialogueSubmitPassword" onclick="changePassword('newPassword', 'oldPassword', 'confirmPassword')">Submit</button>
+			</div>
+			<hr id="smallhr" class="floatLeft">
+					<button class="openBoxButton"
+					onclick="openDialogue('auto', 'changePic', 'changePicDiv')">Change Profile Picture</button>
+				<div class="openableBox" id="changePicDiv">
+					<form>
+						<label for="newPic">Picture URL:</label>
+						<input type="text" id="newPic" required>
+						<p>Option 1: Choose a image online and copy the images URL, paste it here and it will be set as your Profile Image.
+						<br>
+						Option 2: Go to any image upload website for example: <a href="https://imgur.com/upload?beta" target="blank">Imgur.com</a> and upload a image, after it is uploaded click "Copy Link" and then paste that here	
+						</p>
+						<input type="submit" class="hiddenSubmit"/>
+					</form>
+					<button class="dialogueSubmit" onclick="changePic('newPic')">Submit</button>
+				</div>
+
+
+			
 				</td>
 
 			</tr>

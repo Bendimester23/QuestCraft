@@ -1,4 +1,4 @@
-package net.questcraft;
+package net.questcraft.account;
 
 import javax.security.auth.login.AccountException;
 import java.sql.SQLException;
@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AccountSessions {
-    AccountUtil accountUtil = AccountUtil.getInstance();
+     static AccountUtil accountUtil;
     static AccountSessions instance;
-    private Map<String, String> uuidStorage= new HashMap<>();
+    private static Map<String, String> uuidStorage= new HashMap<>();
     public String getNewUUID(String username) {
         String newUUID = UUID.randomUUID().toString();
         addUUIDToStorage(newUUID, username);
@@ -23,6 +23,9 @@ public class AccountSessions {
         }
         return false;
     }
+    public String getRandomUUID() {
+        return UUID.randomUUID().toString();
+    }
     public Account getUserInfo(String uuid) throws SQLException, AccountException {
         System.out.println("getUserInfo Called");
         if (checkUUID(uuid)) {
@@ -35,12 +38,16 @@ public class AccountSessions {
             throw new AccountException();
         }
     }
+    public void changeUserFromUUID(String newUser, String uuid) {
+        uuidStorage.put(uuid, newUser);
+    }
     public void addUUIDToStorage(String uuId, String usernmae) {
         uuidStorage.put(uuId, usernmae);
     }
-    public static AccountSessions getInstance() {
+    public static synchronized AccountSessions getInstance() {
         if (instance == null) {
             instance = new AccountSessions();
+            accountUtil = AccountUtil.getInstance();
         }
         return instance;
     }

@@ -1,14 +1,12 @@
 let username;
 let password;
 let success;
-
 function checkLogIn() {
     username = document.getElementById("username");
     password = document.getElementById("password");
-    success = document.getElementById("loginResponse");
     console.log("contacting");
     loadingOn();
-    contactServer("logIn", { username: this.username.value, password: this.password.value }, function (response)  {
+    contactServer("logIn", { "username": username.value, "password":password.value }, function (response)  {
         
         if (Object.keys(response)[0] == "ErrorClass") {
             const message = response[Object.keys(response)[0]].message

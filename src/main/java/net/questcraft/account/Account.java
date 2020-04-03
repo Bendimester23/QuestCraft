@@ -1,21 +1,24 @@
-package net.questcraft;
+package net.questcraft.account;
 
 public class Account {
     private String username;
     private String password;
     private String inGameUser;
     private  String email;
-    private boolean isAdmin;
+    private String profilePic;
+    private String emailVerifyCode;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Account(String username, String password, String inGameUser, String email) {
+    public Account(String username, String password, String inGameUser, String email, String profilePic, String emailVerifyCode) {
         this.username = username;
         this.password = password;
         this.inGameUser = inGameUser;
         this.email = email;
+        this.profilePic = profilePic;
+        this.emailVerifyCode = emailVerifyCode;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
@@ -46,11 +49,19 @@ public class Account {
         this.email = email;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public String getProfilePic() {
+        return profilePic;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getEmailVerifyCode() {
+        return emailVerifyCode;
+    }
+
+    public void setEmailVerifyCode(String emailVerifyCode) {
+        this.emailVerifyCode = emailVerifyCode;
     }
 }

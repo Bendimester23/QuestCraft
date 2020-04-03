@@ -1,6 +1,6 @@
 package net.questcraft;
 
-public class ErrorClass {
+public class ErrorClass extends Throwable {
     public ErrorClass(String message, int code) {
         this.message = message;
         this.errorCode = code;
@@ -11,6 +11,18 @@ public class ErrorClass {
     //AccountException: 2
     //Cant FInd uuid in list: 3
     //js Response is null: 4
+    //incorrect password: 5
+    //incorrect email Verification: 6
+    //Email Failed to Send: 7
+    //IOEXpetion(discord send failed): 8
+    //Incorrect Server Pin: 9
+
+    //NODE ERROR CODES:
+    //10: couldnt find user in server
+    //12 couldnt contact discord BOt: 12
+
+    //General Errors:
+    //Unidentied Error: 11
     public ErrorClass() {
     }
 

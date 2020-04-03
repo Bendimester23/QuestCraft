@@ -37,7 +37,9 @@ public class ConfigReader {
             InputStream input = new FileInputStream(System.getProperty("user.dir") + "/config.properties");
             Properties prop = new Properties();
             prop.load(input);
-            return prop.getProperty("testing").equalsIgnoreCase("true");
+            boolean testing = prop.getProperty("testing").equalsIgnoreCase("true");
+            System.out.println("TESTING IS " + testing + " AGAIN HERE IS TESTING <---------------------------------");
+            return testing;
 
         }catch (IOException ex) {
             System.out.println("Got IOExeption ex: " + ex.getMessage());

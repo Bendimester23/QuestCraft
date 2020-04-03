@@ -1,5 +1,7 @@
 package net.questcraft;
 
+import net.questcraft.account.Account;
+import net.questcraft.account.AccountUtil;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
@@ -51,10 +53,12 @@ public class JDBCTester {
         Statement myStmt = myConn.createStatement();
         ResultSet results = myStmt.executeQuery(query);
         Account accountSet = new Account(
-                results.getString(1),
+                 results.getString(1),
                 results.getString(2),
+                results.getString(4),
                 results.getString(3),
-                results.getString(4)
+                results.getString(5),
+                results.getString(6)
         );
         return accountSet;
 
@@ -69,5 +73,10 @@ public class JDBCTester {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public void testChangeables() {
+        AccountUtil accountUtil = AccountUtil.getInstance();
+        accountUtil.changePassword("john11", "john55", "john");
     }
 }

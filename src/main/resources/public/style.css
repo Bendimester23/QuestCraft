@@ -1,6 +1,7 @@
 body {
   /*background-color:#C89F9C;*/
   background-color: 	#DCDCDC;
+  font-size: 1vh;
 }
 .banner {
   /*background-color:#B36A5E;*/
@@ -81,6 +82,7 @@ body {
   
 }
 hr {
+	display: block;
   width: 50%;
   margin: 25px auto 25px auto;
   border-color: #080808;
@@ -174,17 +176,32 @@ select {
 }
 
 #smallhr {
-  width: 15%;
+  width: 15vw;
+  max-width: 50px;
+  display: block;
   margin: 25px auto 25px auto;
   border-color: 	#080808;
 }
-.Rules h1 {
+.lists h1 {
  text-align: center;
 }
-.Rules ol {
+.lists {
+	margin: 0 auto;
+	width: 50vw;
+	
+}
+.lists div {
+	margin: 10px;
+	font-weight: bold;
+}
+.lists ol {
 	list-style-position: inside;
-	text-align: center;
-  font-size: 20px
+  font-size: 20px;
+  
+  
+}
+.lists ol li {
+	margin-top: 5px;
 }
 .content {
   background-color: lightgray;
@@ -364,8 +381,8 @@ label[for = "TermsAndService"] {
 right: 0%;
 }
 #profile img {
-	float: left;
-	height: 50vh;
+	
+	width: 25vw;
 	margin: 10px;
 	border-radius: 20px;
 	transition: 0.5s ease;
@@ -526,29 +543,69 @@ text-align: center;
 }
 #LoadingGif {
 	position: fixed;
-	width: 5vw;
+	width: 7vw;
 	right: 10px;
 	z-index: 2;
 	bottom: 10px;
 }
 input[type="submit"] {
 	visibility: hidden;
-}
-.openBoxButton:focus .openableBox {
-	height: auto;
-	width: auto;
-}
-.openBoxButton {
-	border: solid #505050 5px;
-	transition: 0.5s ease;
-	overflow: hidden;
-}
-
+ }
 .openableBox {
 	overflow: hidden;
-	width: 10vw;
+
 	height: 0px;
-	/* :hover {
-		background-color: #a6a6a6;
-	} */
+	 
+	border: solid #505050 0px;
+}  
+.openableBox form {
+	margin: 10px;
+}
+.openBoxButton {
+	border: solid #505050 3px;
+	display: block;
+}
+.openBoxButton:hover {
+	background-color: #b3b3b3;
+}
+.dialogueSubmit {
+	border: solid #505050 3px;
+	margin: 5px;
+}
+.dialogueSubmit:hover {
+	background-color: #b3b3b3;
+}
+.floatLeft {
+	max-width: 1000px;
+	margin:15px 0 15px 0 !important;
+	
+}
+.centered {
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+	
+}
+textarea {
+	margin:  0 auto;
+	width: 25vw;
+	height: 5vh;
+}
+.centeredList {
+	
+		margin: 0 auto;
+		width: 50vw;
+		
+}
+.centeredList ol {
+	text-align: center;
+  list-style: inside;
+	font-size: 2vh;
+	list-style: none;
+}
+.divHR {
+	width: 5vw;
+	height: 3px;
+	background-color: #080808;
+	margin: 12px;
 }

@@ -1,8 +1,16 @@
 //image names in object with license.
 const images = {
-	QuestCraftSH: '"QuestCraft Shopping District" by Chestly is licensed under CC-BY-ND CC Search 4.0', 
-	QuestCraftSpawn: '"QuestCraft Spawn" by Chestly is licensed under CC-BY-ND CC Search 4.0',
-	QuestCraftVillage:'"QuestCraft Village" by Chestly is licensed under CC-BY-ND CC Search 4.0'
+	GiantCastle: '"GiantCastle" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	GiantFarms: '"Giant Farms" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	PlayerHavoc: '"Player Fun" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	PlayerVillage: '"PlayerVillage" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	QuestCraftSHoppingD: '"QuestCraft ShoppingD" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	QuestCraftVillage: '"QuestCraft Vilalge" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	ShoppingDistrictShops: '"ShoppingDistrictShops" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	ShoppingEntrance: '"Shopping Entrance" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	Spawn: '"Spawn" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	SpawnCommunity: '"Spawn Community" by Chestly is licensed under CC-BY-ND CC Search 4.0',
+	SpawnPicture: '"SpawnPic" by Chestly is licensed under CC-BY-ND CC Search 4.0'
 	};
 //initiating variables for global use
 let imagePath;

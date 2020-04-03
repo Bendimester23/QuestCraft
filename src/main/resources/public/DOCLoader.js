@@ -7,7 +7,7 @@ window.onload = function () {
 	this.contactServer("verify", { UUID: getCookie("UUID") }, function (response) {
 		verified = response;
 		if (verified == true) {
-
+			
 			registerTabs[0].innerHTML = '<li><a href = "Account.html" id = "hiddenlink">Account</a></li><li><a href = "logOut.html" id = "hiddenlink">Log Out</a></li>';
 
 			if (fileName == "games") {
@@ -28,13 +28,16 @@ window.onload = function () {
 						const name = response[Object.keys(response)[0]].username;
 						const IGN = response[Object.keys(response)[0]].inGameUser;
 						const email = response[Object.keys(response)[0]].email;
+						const pic = response[Object.keys(response)[0]].profilePic;
 						dataDiv[0].innerHTML += name;
 						dataDiv[1].innerHTML += IGN;
 						dataDiv[2].innerHTML += email;
-						
+						if (pic != null) {
+							document.getElementById("profilePicture").src = pic;
+						}
 					}
 				});
-			}
+			} 
 		} else {
 			registerTabs[0].innerHTML = '<li><a href = "SignUp.html" id = "hiddenlink">Sign Up</a></li><li><a href = "LogIn.html" id = "hiddenlink">Log In</a></li>';
 		}
@@ -53,7 +56,7 @@ function contactServer(path, params, callBackFunc) {
 	const keys = Object.keys(params);
 	for (let i = 0; i < keys.length; i++) {
 		const currentKey = keys[i];
-		const currentValue = params[currentKey];
+		const currentValue = encodeURIComponent(params[currentKey]);
 		fullPath += currentKey + "=" + currentValue;
 		if (keys.length > 1 && i < keys.length - 1) {
 			fullPath += "&";
