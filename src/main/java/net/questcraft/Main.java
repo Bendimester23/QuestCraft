@@ -92,7 +92,10 @@ public class Main {
                 return objectMapper.writeValueAsString(new ErrorClass("Incorrect Server Verification Pin", 9));
             }
         });
-        get("/getAllApplicationData", (request, response) -> {
+        get("/getApplicationData", (request, response) -> {
+            return "OK";
+        });
+        get("/linkMCAccount", (request, response) -> {
             return "OK";
         });
         get("/changeUsername", (request, response) -> {

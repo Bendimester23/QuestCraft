@@ -1,6 +1,7 @@
 package net.questcraft.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import net.questcraft.ConfigReader;
 import net.questcraft.ErrorClass;
 import net.questcraft.NodeResponse;
