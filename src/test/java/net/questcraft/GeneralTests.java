@@ -21,7 +21,7 @@ public class GeneralTests {
     @Test
     public void checkLogin() {
         AccountUtil accountUtil = new AccountUtil();
-        System.out.println(accountUtil.verifyAccount("john", "john55"));
+       // System.out.println(accountUtil.verifyAccount("john", "john55"));
         ConfigReader config = new ConfigReader();
         System.out.println(config.getTesting());
     }

@@ -30,7 +30,7 @@ public class AccountSessions {
         System.out.println("getUserInfo Called");
         if (checkUUID(uuid)) {
             System.out.println("found UUid and getting info");
-            return accountUtil.getAccountByUser(uuidStorage.get(uuid));
+            return accountUtil.getAccount(uuidStorage.get(uuid));
 
 
         } else {

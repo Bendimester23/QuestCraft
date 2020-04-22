@@ -1,137 +1,34 @@
 package net.questcraft.account;
 
-import net.questcraft.ConfigReader;
-import net.questcraft.notification.NotificationMessages;
-import net.questcraft.notification.NotificationUtil;
 
-import javax.mail.SendFailedException;
+import net.questcraft.mysqlcontacter.MySQLUtil;
+
+
 import java.sql.*;
-import java.util.UUID;
 
 public class AccountDaoTestImplementer implements AccountDAO {
-    NotificationUtil notificationUtil = NotificationUtil.getInstance();
-    ConfigReader configReader = new ConfigReader();
-    NotificationMessages notificationMessages = new NotificationMessages();
-    public Account querySQLDatabase(String query) throws SQLException {
-        String url = configReader.readPropertiesFile("url");
-        String user = configReader.readPropertiesFile("username");
-        String password = configReader.readPropertiesFile("password");
-        Connection myConn;
-
-
-        myConn = DriverManager.getConnection(url, user, password);
-        Statement myStmt = myConn.createStatement();
-        ResultSet results = myStmt.executeQuery(query);
-        results.next();
-        Account accountSet = new Account(
-                results.getString(1),
-                results.getString(2),
-                results.getString(4),
-                results.getString(3),
-                results.getString(5),
-                results.getString(6)
-
-        );
-        return accountSet;
-
-
-    }
-
-    public void updateSQLDatabase(String update) throws SQLException {
-        String url = configReader.readPropertiesFile("url");
-        String user = configReader.readPropertiesFile("username");
-        String password = configReader.readPropertiesFile("password");
-        Connection myConn;
-        myConn = DriverManager.getConnection(url, user, password);
-        Statement myStmt = myConn.createStatement();
-        myStmt.execute(update);
-    }
-
-
+    MySQLUtil contact = MySQLUtil.getInstance();
     @Override
-    public Account getAccountByUser(String userName) throws SQLException {
-        String query = "select * from webAccountTest where username = '" + userName + "'";
-        return querySQLDatabase(query);
+    public Account getAccount(String userName) throws SQLException {
+        return contact.getAccount(userName);
     }
 
     @Override
     public void createAccount(Account account) throws SQLException {
-        String update = "INSERT INTO webAccountTest (username, password, mcUser, email) VALUES ('" + account.getUsername() + "', '" + account.getPassword() + "', '" + account.getInGameUser() + "', '" + account.getEmail() + "')";
-        updateSQLDatabase(update);
+        String update = "INSERT INTO testAccountData (username, password, mcUser, email) VALUES ('" + account.getUsername() + "', '" + account.getPassword() + "', '" + account.getInGameUser() + "', '" + account.getEmail() + "')";
+        contact.updateSQL(update);
     }
 
     @Override
-    public boolean checkLogin(String user, String password) {
-        String query = "select * from webAccountTest where username = '" + user + "' And password = '" + password + "'";
-        try {
-            if (querySQLDatabase(query) != null) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            return false;
-        }
-        return false;
+    public void updateAccount(Account account, String user) throws SQLException {
+        String update = "UPDATE testAccountData SET username = '" + account.getUsername() + "', password = '" + account.getPassword() + "', mcUser = '" + account.getInGameUser() + "', email = '" + account.getEmail() + "', profilePic = '" + account.getProfilePic() + "', emailVerifyCode = '" + account.getEmailVerifyCode() + "', pendingMCUser = '" + account.getPendingMCUser() + "', pendingEmail = '" + account.getPendingEmail() + "' WHERE username = '" + user + "';";
+        contact.updateSQL(update);
     }
 
     @Override
-    public void addProfilePic(String URL, String username) throws SQLException {
-        String update = "UPDATE webAccountTest SET profilePic = '" + URL + "' WHERE username = '" + username + "'";
-        updateSQLDatabase(update);
-    }
-    @Override
-    public void addEmail(String email, String username, String code, String uuid) throws SQLException, SendFailedException {
-        if (!code.equalsIgnoreCase("")) {
-            String dbQuery = "SELECT * from webAccountTest where username = '" + username + "'";
-
-            Account userQuery = querySQLDatabase(dbQuery);
-            if (userQuery.getEmailVerifyCode().contains(code)) {
-                String userEmail = userQuery.getEmailVerifyCode().substring(0, userQuery.getEmailVerifyCode().indexOf("~"));
-                String dbUpdate = "UPDATE webAccountTest SET email = '" + userEmail + "' WHERE username = '" + username + "'";
-                updateSQLDatabase(dbUpdate);
-                String dbRemoveVerifyUpdate = "UPDATE webAccountTest SET emailVerifyCode = '' WHERE username = '" + username + "'";
-                updateSQLDatabase(dbRemoveVerifyUpdate);
-            } else {
-                String playerCode = UUID.randomUUID().toString();
-                String verifyLink = "localhost:4567/verifyEmail?emailVerification=" + playerCode + "&UUID=" + uuid;
-                System.out.println(verifyLink);
-                notificationUtil.sendNotification(email, notificationMessages.getEmailVerificationM(username, verifyLink), "Email Account Confirmation");
-                String dbUpdate = "UPDATE webAccountTest SET emailVerifyCode = '" + (email + "~" + playerCode) + "' WHERE username = '" + username + "'";
-                updateSQLDatabase(dbUpdate);
-            }
-        } else {
-            String playerCode = UUID.randomUUID().toString();
-            String verifyLink = "localhost:4567/verifyEmail?emailVerification=" + playerCode + "&UUID=" + uuid;
-            System.out.println(verifyLink);
-            notificationUtil.sendNotification(email, notificationMessages.getEmailVerificationM(username, verifyLink), "Email Account Confirmation");
-            String dbUpdate = "UPDATE webAccountTest SET emailVerifyCode = '" + (email + "~" + playerCode) + "' WHERE username = '" + username + "'";
-            updateSQLDatabase(dbUpdate);
-
-        }
-
+    public void deleteAccount(String user) throws SQLException {
+        String smt = "Delete From testAccountData Where username = '" + user + "';";
+        contact.updateSQL(smt);
     }
 
-    @Override
-    public boolean changePassword(String oldP, String newP, String username) {
-        String pDBQuery = "select * from webAccountTest where username = '" + username + "'";
-        try {
-            String oldPassword = querySQLDatabase(pDBQuery).getPassword();
-            if (oldP.equalsIgnoreCase(oldPassword)) {
-                String dbUpdate = "UPDATE webAccountTest SET password = '" + newP + "' WHERE username = '" + username + "'";
-                updateSQLDatabase(dbUpdate);
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            return false;
-        }
-        return false;
-    }
-
-    @Override
-    public void changeUsername(String newUser, String username) throws SQLException {
-        String dbUpdate = "UPDATE webAccountTest SET username = '" + newUser + "' WHERE username = '" + username + "'";
-        updateSQLDatabase(dbUpdate);
-
-    }
 }

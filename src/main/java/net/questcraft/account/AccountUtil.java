@@ -21,49 +21,27 @@ public class AccountUtil {
         return instance;
     }
 
-    public void createAccount(String username, String password, String email, String inGameUser, String uuid) throws SQLException, SendFailedException {
-        Account account = new Account(username, password, inGameUser, null, null, null);
+    public void createAccount(Account account) throws SQLException {
         System.out.println("creating account in UTIL");
         accountDAO.createAccount(account);
-        if (!email.equalsIgnoreCase("")) {
-            addEmail(email, username, "", uuid);
-        }
+
     }
 
-    public Account getAccountByUser(String user) throws SQLException {
+    public void deleteAccount(String user) throws SQLException {
+        accountDAO.deleteAccount(user);
+    }
+    public void updateAccount(Account account, String user) throws SQLException {
+        accountDAO.updateAccount(account, user);
+    }
+    public Account getAccount(String user) throws SQLException {
         System.out.println("rtying to get account be user Username: " + user);
-        return accountDAO.getAccountByUser(user);
+        return accountDAO.getAccount(user);
     }
 
-    public boolean verifyAccount(String username, String code) {
+    public boolean verifyAccount(String user, String password) throws SQLException {
         System.out.println("verifying account. The URL is: " + configReader.readPropertiesFile("url"));
-        if (accountDAO.checkLogin(username, code)) {
-            System.out.println("found user and password in database. User: " + username + " Passowrd: " + code);
-            return true;
-        } else {
-            System.out.println("couldnt find user and password in database. user: " + username + " passowrd: " + code);
-            return false;
-        }
-    }
-
-    public void changeUsername(String newUser, String oldUsername) throws SQLException {
-        accountDAO.changeUsername(newUser, oldUsername);
-    }
-
-    public void addEmail(String email, String username, String code, String uuid) throws SQLException, SendFailedException {
-        accountDAO.addEmail(email, username, code, uuid);
-    }
-
-    public boolean changePassword(String oldP, String newP, String username) {
-        try {
-            return accountDAO.changePassword(hashPassword(oldP), hashPassword(newP), username);
-        } catch (NoSuchAlgorithmException ex) {
-        }
-        return false;
-    }
-
-    public void addProfilePic(String URL, String username) throws SQLException {
-        accountDAO.addProfilePic(URL, username);
+        Account SQLAccount = accountDAO.getAccount(user);
+        return SQLAccount.getPassword().equals(password);
     }
 
     public String hashPassword(String pw) throws NoSuchAlgorithmException {

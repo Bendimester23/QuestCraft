@@ -1,7 +1,7 @@
 package net.questcraft;
 
-public class ErrorClass  {
-    public ErrorClass(String message, int code) {
+public class WebError extends Throwable {
+    public WebError(String message, int code) {
         this.message = message;
         this.errorCode = code;
     }
@@ -16,6 +16,7 @@ public class ErrorClass  {
     //Email Failed to Send: 7
     //IOEXpetion(discord send failed): 8
     //Incorrect Server Pin: 9
+    //WebError(data not recognised): 13
 
     //NODE ERROR CODES:
     //10: couldnt find user in server
@@ -23,6 +24,8 @@ public class ErrorClass  {
 
     //General Errors:
     //Unidentied Error: 11
+    public WebError() {
+    }
 
     public String getMessage() {
         return message;
@@ -38,9 +41,5 @@ public class ErrorClass  {
 
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public String toString() {
-        return "message: " + getMessage() + ", errorCode: " + getErrorCode();
     }
 }

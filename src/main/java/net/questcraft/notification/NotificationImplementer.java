@@ -1,9 +1,8 @@
 package net.questcraft.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import net.questcraft.ConfigReader;
-import net.questcraft.ErrorClass;
+import net.questcraft.WebError;
 import net.questcraft.NodeResponse;
 import net.questcraft.joinapp.Application;
 
@@ -81,7 +80,7 @@ public class NotificationImplementer implements NotificationDAO {
     }
 
     @Override
-    public void sendDiscordBotApplication(Application application) throws ErrorClass {
+    public void sendDiscordBotApplication(Application application) throws WebError {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(WRAP_ROOT_VALUE, true);
@@ -91,11 +90,11 @@ public class NotificationImplementer implements NotificationDAO {
 
             nodeResponseHandler(objectMapper, con);
         } catch (IOException e) {
-            throw new ErrorClass("IOException, Issue contacting The discord Bot, Sorry about that!", 12);
+            throw new WebError("IOException, Issue contacting The discord Bot, Sorry about that!", 12);
         }
     }
 
-    public void nodeResponseHandler(ObjectMapper objectMapper, HttpURLConnection con) throws IOException, ErrorClass {
+    public void nodeResponseHandler(ObjectMapper objectMapper, HttpURLConnection con) throws IOException, WebError {
         StringBuilder content;
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -113,7 +112,7 @@ public class NotificationImplementer implements NotificationDAO {
         System.out.println(data);
         if (!data.getStatus()) {
             if (data.getCode() == 12) {
-                throw new ErrorClass("Couldnt Find your discord user name in the QuestCraft discord server, please make sure you have joined", 10);
+                throw new WebError("Couldnt Find your discord user name in the QuestCraft discord server, please make sure you have joined", 10);
             }
         }
     }

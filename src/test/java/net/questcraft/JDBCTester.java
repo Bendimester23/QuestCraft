@@ -77,6 +77,6 @@ public class JDBCTester {
     @Test
     public void testChangeables() {
         AccountUtil accountUtil = AccountUtil.getInstance();
-        accountUtil.changePassword("john11", "john55", "john");
+       // accountUtil.changePassword("john11", "john55", "john");
     }
 }

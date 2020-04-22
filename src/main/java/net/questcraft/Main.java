@@ -7,6 +7,7 @@ import net.questcraft.account.AccountSessions;
 import net.questcraft.account.AccountUtil;
 import net.questcraft.joinapp.Application;
 import net.questcraft.joinapp.ApplicationUtil;
+import net.questcraft.verifier.VerificationUtil;
 
 import javax.mail.SendFailedException;
 import javax.security.auth.login.AccountException;
@@ -24,6 +25,7 @@ public class Main {
         AccountSessions accountSessions = AccountSessions.getInstance();
         AccountUtil accountUtil = AccountUtil.getInstance();
         ConfigReader configReader = new ConfigReader();
+        VerificationUtil verificationUtil = VerificationUtil.getInstance();
         staticFiles.location("/public");
         get("/signup", (request, response) -> {
             System.out.println("requested signup");
@@ -34,9 +36,11 @@ public class Main {
             String email = request.queryParams("email");
             String mcUser = request.queryParams("mcUser");
             try {
+                //    public Account(String username, String password, String inGameUser, String email, String profilePic, String emailVerifyCode, String pendingMCUser, String pendingEmail) {
+                Account account = new Account(username, password, null, null, null, null, mcUser, email);
                 String uuid = accountSessions.getNewUUID(username);
                 System.out.println("trying to make account");
-                accountUtil.createAccount(username, password, email, mcUser, uuid);
+                accountUtil.createAccount(account);
                 System.out.println("created account");
 
                 System.out.println("returning uuid");
@@ -44,18 +48,21 @@ public class Main {
             } catch (SQLException ex) {
                 System.out.println("caught SQL exeption, Exeption: " + ex.getMessage());
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
-            } catch (SendFailedException ex) {
-                return objectMapper.writeValueAsString(accountSessions.getNewUUID(username));
+//            } catch (SendFailedException ex) {
+//                return objectMapper.writeValueAsString(accountSessions.getNewUUID(username));
             }
         });
         get("/changePassword", (request, response) -> {
-            String username = accountSessions.getUserInfo(request.queryParams("UUID")).getUsername();
-            if (accountUtil.changePassword(request.queryParams("oldP"),request.queryParams("newP"), username)) {
+            Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
+            String oldPassword = accountUtil.hashPassword(request.queryParams("oldP"));
+            String newPassword = accountUtil.hashPassword(request.queryParams("newP"));
+            if (account.getPassword().equals(oldPassword)) {
+                account.setPassword(newPassword);
+                accountUtil.updateAccount(account, account.getUsername());
                 return objectMapper.writeValueAsString("OK");
             } else {
                 return objectMapper.writeValueAsString(new ErrorClass("Incorrect password", 5));
             }
-
         });
         get("/createApplication", (request, response) -> {
             Application application;
@@ -64,17 +71,17 @@ public class Main {
                 application = new Application(request.queryParams("questions"), request.queryParams("mcUser"), request.queryParams("discordUser"), request.queryParams("email"), username, 0);
 
             } catch (AccountException ex) {
-                application = new Application(request.queryParams("questions"), request.queryParams("mcUser"),request.queryParams("discordUser"), request.queryParams("email"),  null, 0);
+                application = new Application(request.queryParams("questions"), request.queryParams("mcUser"), request.queryParams("discordUser"), request.queryParams("email"), null, 0);
             }
             try {
                 applicationUtil.createApplication(application);
 
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 1));
-            } catch (ErrorClass ex) {
-                System.out.println("IOEX " + ex.getMessage());
-
-                    return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 10));
+//            } catch (WebError ex) {
+//                System.out.println("IOEX " + ex.getMessage());
+//
+//                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 10));
 
             }
             return objectMapper.writeValueAsString("OK");
@@ -83,8 +90,13 @@ public class Main {
         get("/modifyStatus", (request, response) -> {
             String requestedPin = request.queryParams("pin");
             if (requestedPin.equalsIgnoreCase(configReader.readPropertiesFile("statusModifyPin"))) {
-                try {
-                    return objectMapper.writeValueAsString(applicationUtil.changeStatus(Integer.parseInt(request.queryParams("status")), request.queryParams("mcUsername")));
+               try {
+                   String mcUsername = request.queryParams("mcUsername");
+                   Application application = applicationUtil.getApplication(mcUsername);
+                   int newStatus = Integer.parseInt(request.queryParams("status")) + application.getStatus();
+                   application.setStatus(newStatus);
+                   applicationUtil.updateApplication(application, mcUsername);
+                   return objectMapper.writeValueAsString(newStatus);
                 } catch (SQLException ex) {
                     return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 1));
                 }
@@ -93,47 +105,60 @@ public class Main {
             }
         });
         get("/getApplicationData", (request, response) -> {
-            return "OK";
+            String mcUser = request.queryParams("username");
+            try {
+                return objectMapper.writeValueAsString(applicationUtil.getApplication(mcUser));
+            } catch (SQLException e) {
+
+                ErrorClass error = new ErrorClass(e.getMessage(), 1);
+                System.out.println(error.toString());
+                return objectMapper.writeValueAsString(error);
+            }
         });
         get("/linkMCAccount", (request, response) -> {
             return "OK";
         });
         get("/changeUsername", (request, response) -> {
-            String username = accountSessions.getUserInfo(request.queryParams("UUID")).getUsername();
+            Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
             try {
-                accountUtil.changeUsername(request.queryParams("newUser"), username);
-                accountSessions.changeUserFromUUID(request.queryParams("newUser"), request.queryParams("UUID"));
+                String oldUser = account.getUsername();
+                String newUser = request.queryParams("newUser");
+                account.setUsername(newUser);
+                accountUtil.updateAccount(account, oldUser);
+                accountSessions.changeUserFromUUID(newUser, request.queryParams("UUID"));
                 return objectMapper.writeValueAsString("OK");
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
             }
+
+
         });
         get("/changeProfilePic", (request, response) -> {
             try {
-                String username = accountSessions.getUserInfo(request.queryParams("UUID")).getUsername();
-                accountUtil.addProfilePic(request.queryParams("URL"), username);
+                Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
+                String url = request.queryParams("URL");
+                account.setProfilePic(url);
+                accountUtil.updateAccount(account, account.getUsername());
                 return objectMapper.writeValueAsString("OK");
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
             }
+
         });
         get("/verifyEmail", (request, response) -> {
-            String uuid = request.queryParams("UUID");
-            System.out.println("the uuid is " + uuid);
-            Account userInfo = accountSessions.getUserInfo(uuid);
-            System.out.println(userInfo.getUsername() +  " And the uuid is: " + uuid);
-            String username = userInfo.getUsername();
+            String user = request.queryParams("user");
+            Account account = accountUtil.getAccount(user);
+            String code = request.queryParams("emailVerification");
             try {
-                accountUtil.addEmail(request.queryParams("email"), username, request.queryParams("emailVerification"), request.queryParams("UUID"));
-                if (!request.queryParams("emailVerification").equalsIgnoreCase("")) {
-                    response.redirect("/verify.html");
-                }
+                verificationUtil.handleEmail(code, account);
                 return objectMapper.writeValueAsString("OK");
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("Internal DataBase Error, Please Contact Administration", 1));
-            } catch(SendFailedException ex) {
+            } catch (WebError ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("Email Failed to Send", 7));
             }
+
+
 
 
         });
@@ -154,6 +179,7 @@ public class Main {
                 System.out.println(objectMapper.writeValueAsString(errorClass));
                 return objectMapper.writeValueAsString(errorClass);
             }
+
         });
         get("/getInfo", (request, response) -> {
             System.out.println("get info");
@@ -166,14 +192,14 @@ public class Main {
                     return objectMapper.writeValueAsString(accountSessions.getUserInfo(uuid));
                 } else {
                     System.out.println("UUid wasnt in the list");
-                    return objectMapper.writeValueAsString(new ErrorClass("Could not Find Account UUID in Lists, Please Try Again", 3));
+                    return objectMapper.writeValueAsString(new ErrorClass("Could not Find contacter UUID in Lists, Please Try Again", 3));
                 }
             } catch (SQLException e) {
                 System.out.println("Caught SQL exception, EX:" + e.getMessage());
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase malfunction, Please Try Again Later", 1));
             } catch (AccountException e) {
                 System.out.println("Got AccountEx Ex: " + e.getMessage());
-                return objectMapper.writeValueAsString(new ErrorClass("Could not Find Account UUID in Lists, Please Try Again", 2));
+                return objectMapper.writeValueAsString(new ErrorClass("Could not Find contacter UUID in Lists, Please Try Again", 2));
             }
 
         });

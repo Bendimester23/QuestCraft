@@ -1,12 +1,66 @@
 package net.questcraft.joinapp;
 
-public class Application {
+import net.questcraft.verifier.VerificationData;
+
+public class Application implements VerificationData {
     String questions;
     String mcUsername;
     String discordUsername;
     String email;
     String questCraftAccount;
+    String pendingMC;
+    String pendingEmail;
+    String pendingEmailCode;
+
+    public Application(String questions, String mcUsername, String discordUsername, String email, String questCraftAccount, String pendingMC, String pendingEmail, String pendingEmailCode, String pendingDiscord, int status) {
+        this.questions = questions;
+        this.mcUsername = mcUsername;
+        this.discordUsername = discordUsername;
+        this.email = email;
+        this.questCraftAccount = questCraftAccount;
+        this.pendingMC = pendingMC;
+        this.pendingEmail = pendingEmail;
+        this.pendingEmailCode = pendingEmailCode;
+        this.pendingDiscord = pendingDiscord;
+        this.status = status;
+    }
+
+    String pendingDiscord;
     int status;
+
+    public String getPendingMC() {
+        return pendingMC;
+    }
+
+    public void setPendingMC(String pendingMC) {
+        this.pendingMC = pendingMC;
+    }
+
+    public String getPendingEmail() {
+        return pendingEmail;
+    }
+
+    public void setPendingEmail(String pendingEmail) {
+        this.pendingEmail = pendingEmail;
+    }
+
+    public String getPendingEmailCode() {
+        return pendingEmailCode;
+    }
+
+    public void setPendingEmailCode(String pendingEmailCode) {
+        this.pendingEmailCode = pendingEmailCode;
+    }
+
+    public String getPendingDiscord() {
+        return pendingDiscord;
+    }
+
+    public void setPendingDiscord(String pendingDiscord) {
+        this.pendingDiscord = pendingDiscord;
+    }
+
+
 
     public int getStatus() {
         return status;

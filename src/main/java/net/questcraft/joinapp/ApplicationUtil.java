@@ -1,17 +1,28 @@
 package net.questcraft.joinapp;
 
-import net.questcraft.ErrorClass;
+import net.questcraft.WebError;
 import net.questcraft.notification.NotificationUtil;
 
 import java.sql.SQLException;
 
 public class ApplicationUtil {
     static ApplicationUtil instance;
-    ApplicationDAO applicationInterface = new ApplicationsImplementer();
+    ApplicationDAO applicationDAO = new ApplicationsImplementer();
     NotificationUtil notificationUtil = NotificationUtil.getInstance();
-    public void createApplication(Application application) throws ErrorClass, SQLException {
-        applicationInterface.createApplication(application);
-        notificationUtil.sendAppToDiscord(application);
+    public void createApplication(Application account) throws SQLException {
+        System.out.println("creating account in UTIL");
+        applicationDAO.createApplication(account);
+
+    }
+
+    public void deleteApp(String user) throws SQLException {
+        applicationDAO.deleteApplication(user);
+    }
+    public void updateApplication(Application account, String user) throws SQLException {
+        applicationDAO.updateApplication(account, user);
+    }
+    public Application getApplication(String user) throws SQLException {
+        return applicationDAO.getApplication(user);
     }
     public static synchronized ApplicationUtil getInstance() {
         if (instance == null) {
@@ -19,7 +30,5 @@ public class ApplicationUtil {
         }
         return instance;
     }
-    public int changeStatus(int status, String username) throws SQLException {
-         return applicationInterface.changeStatus(status, username);
-    }
+
 }
