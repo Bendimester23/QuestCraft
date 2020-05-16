@@ -7,6 +7,7 @@ import net.questcraft.notification.NotificationUtil;
 import org.junit.jupiter.api.Test;
 
 import javax.security.auth.login.AccountException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 
@@ -31,7 +32,7 @@ public class GeneralTests {
         //accountUtil.createAccount("Gwefnery", "SnarkyPuupy4ever", "", "");
     }
     @Test
-    public void UUIDTest() throws AccountException, SQLException {
+    public void UUIDTest() throws AccountException, SQLException, InvocationTargetException, IllegalAccessException {
         AccountSessions accountSessions = AccountSessions.getInstance();
         String uuid = accountSessions.getNewUUID("john");
         System.out.println(uuid);

@@ -1,4 +1,4 @@
-package net.questcraft;
+package net.questcraft.notification;
 
 public class NodeResponse {
     public NodeResponse() {

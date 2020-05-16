@@ -1,52 +1,51 @@
 package net.questcraft.verifier;
 
-import net.questcraft.WebError;
+import net.questcraft.errors.InternalError;
+import net.questcraft.smtcreator.TableData;
 
 import javax.mail.SendFailedException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 public class VerificationUtil {
     Verifier verifier;
     private static VerificationUtil instance;
 
-    public void verifyEmail(VerificationData data) throws WebError, SendFailedException {
+    public void verifyEmail(TableData data) throws InternalError, SendFailedException, IOException, SQLException, InvocationTargetException, IllegalAccessException {
         verifier = new VerifyEmailImplementer();
         verifier.verifyAccount(data);
     }
 
-    public void handleEmail(String code, VerificationData data) throws WebError, SQLException {
+    public void handleEmail(String code, TableData data) throws InternalError, SQLException, InvocationTargetException, IllegalAccessException {
         verifier = new VerifyEmailImplementer();
 
         verifier.handleResponse(code, data);
 
     }
 
-    public void verifyMinecraft(VerificationData data) throws WebError, SendFailedException {
-        verifier = new VerifyEmailImplementer();
+    public void verifyMinecraft(TableData data) throws InternalError, SendFailedException, IOException, SQLException, InvocationTargetException, IllegalAccessException {
+        verifier = new VerifyMinecraftImplementer();
         verifier.verifyAccount(data);
     }
 
-    public void handleMinecraft(String code, VerificationData data) throws WebError {
-        verifier = new VerifyEmailImplementer();
-        try {
+    public void handleMinecraft(String code, TableData data) throws InternalError, IllegalAccessException, SQLException, InvocationTargetException {
+        verifier = new VerifyMinecraftImplementer();
+
             verifier.handleResponse(code, data);
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public void verifyDiscord(VerificationData data) throws WebError, SendFailedException {
-        verifier = new VerifyEmailImplementer();
+    public void verifyDiscord(TableData data) throws InternalError, SendFailedException, IOException, SQLException, InvocationTargetException, IllegalAccessException {
+        verifier = new VerifyDiscordImplementer();
         verifier.verifyAccount(data);
     }
 
-    public void handleDiscord(String code, VerificationData data) throws WebError {
-        verifier = new VerifyEmailImplementer();
-        try {
+    public void handleDiscord(String code, TableData data) throws InternalError, IllegalAccessException, SQLException, InvocationTargetException {
+        verifier = new VerifyDiscordImplementer();
+
             verifier.handleResponse(code, data);
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public static synchronized VerificationUtil getInstance() {

@@ -1,15 +1,18 @@
 package net.questcraft.account;
 
+import net.questcraft.errors.InternalError;
+
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 public interface AccountDAO {
-    Account getAccount(String userName) throws SQLException;
+    Account getAccount(String userName) throws SQLException, InvocationTargetException, IllegalAccessException;
 
-    void createAccount(Account account) throws SQLException;
+    void createAccount(Account account) throws SQLException, InvocationTargetException, IllegalAccessException;
 
-    void updateAccount(Account account, String user) throws SQLException;
+    void updateAccount(Account account, String user) throws SQLException, InvocationTargetException, IllegalAccessException, InternalError;
 
-    void deleteAccount(String user) throws SQLException;
+    void deleteAccount(String user) throws SQLException, InvocationTargetException, IllegalAccessException;
 
 //    boolean checkLogin(String password, String username);
 //

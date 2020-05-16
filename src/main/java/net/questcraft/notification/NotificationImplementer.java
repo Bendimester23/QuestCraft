@@ -2,8 +2,7 @@ package net.questcraft.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.questcraft.ConfigReader;
-import net.questcraft.WebError;
-import net.questcraft.NodeResponse;
+import net.questcraft.errors.InternalError;
 import net.questcraft.joinapp.Application;
 
 import javax.mail.*;
@@ -20,7 +19,7 @@ import java.util.Properties;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.WRAP_ROOT_VALUE;
 
-public class NotificationImplementer implements NotificationDAO {
+public class NotificationImplementer implements Notifier {
     ConfigReader configReader = new ConfigReader();
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -80,7 +79,7 @@ public class NotificationImplementer implements NotificationDAO {
     }
 
     @Override
-    public void sendDiscordBotApplication(Application application) throws WebError {
+    public void sendDiscordBotApplication(Application application) throws InternalError {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(WRAP_ROOT_VALUE, true);
@@ -90,11 +89,21 @@ public class NotificationImplementer implements NotificationDAO {
 
             nodeResponseHandler(objectMapper, con);
         } catch (IOException e) {
-            throw new WebError("IOException, Issue contacting The discord Bot, Sorry about that!", 12);
+            throw new InternalError("IOException, Issue contacting The discord Bot, Sorry about that!", 12);
         }
     }
 
-    public void nodeResponseHandler(ObjectMapper objectMapper, HttpURLConnection con) throws IOException, WebError {
+    @Override
+    public void sendDiscordVerification(String username, String discriminator, String link) throws IOException, InternalError {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(WRAP_ROOT_VALUE, true);
+        URL obj = new URL("http://localhost:8081/verifyAccount?username=" + username + "&discriminator=" + discriminator + "&link=" + URLEncoder.encode(link));
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+;       nodeResponseHandler(objectMapper, con);
+
+    }
+
+    public void nodeResponseHandler(ObjectMapper objectMapper, HttpURLConnection con) throws IOException, InternalError {
         StringBuilder content;
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -112,7 +121,7 @@ public class NotificationImplementer implements NotificationDAO {
         System.out.println(data);
         if (!data.getStatus()) {
             if (data.getCode() == 12) {
-                throw new WebError("Couldnt Find your discord user name in the QuestCraft discord server, please make sure you have joined", 10);
+                throw new InternalError("Couldnt Find your discord user name in the QuestCraft discord server, please make sure you have joined", 10);
             }
         }
     }

@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.questcraft.account.Account;
 import net.questcraft.account.AccountSessions;
 import net.questcraft.account.AccountUtil;
+import net.questcraft.errors.ErrorClass;
+import net.questcraft.errors.InternalError;
 import net.questcraft.joinapp.Application;
 import net.questcraft.joinapp.ApplicationUtil;
 import net.questcraft.verifier.VerificationUtil;
+import net.questcraft.verifier.minecraft.MCReturnableLinks;
 
-import javax.mail.SendFailedException;
 import javax.security.auth.login.AccountException;
 import java.sql.SQLException;
 
@@ -26,6 +28,7 @@ public class Main {
         AccountUtil accountUtil = AccountUtil.getInstance();
         ConfigReader configReader = new ConfigReader();
         VerificationUtil verificationUtil = VerificationUtil.getInstance();
+
         staticFiles.location("/public");
         get("/signup", (request, response) -> {
             System.out.println("requested signup");
@@ -36,8 +39,7 @@ public class Main {
             String email = request.queryParams("email");
             String mcUser = request.queryParams("mcUser");
             try {
-                //    public Account(String username, String password, String inGameUser, String email, String profilePic, String emailVerifyCode, String pendingMCUser, String pendingEmail) {
-                Account account = new Account(username, password, null, null, null, null, mcUser, email);
+                Account account = new Account(username, password, email, mcUser);
                 String uuid = accountSessions.getNewUUID(username);
                 System.out.println("trying to make account");
                 accountUtil.createAccount(account);
@@ -48,9 +50,14 @@ public class Main {
             } catch (SQLException ex) {
                 System.out.println("caught SQL exeption, Exeption: " + ex.getMessage());
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
-//            } catch (SendFailedException ex) {
-//                return objectMapper.writeValueAsString(accountSessions.getNewUUID(username));
+            } catch (InternalError internalError) {
+                return objectMapper.writeValueAsString(new ErrorClass(internalError.getMessage(), internalError.getErrorCode()));
+
             }
+        });
+        get("/discord", (request, response) -> {
+            response.redirect("https://discord.gg/4JwPCxN");
+            return objectMapper.writeValueAsString("OK");
         });
         get("/changePassword", (request, response) -> {
             Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
@@ -58,7 +65,11 @@ public class Main {
             String newPassword = accountUtil.hashPassword(request.queryParams("newP"));
             if (account.getPassword().equals(oldPassword)) {
                 account.setPassword(newPassword);
-                accountUtil.updateAccount(account, account.getUsername());
+                try {
+                    accountUtil.updateAccount(account, account.getUsername());
+                } catch (InternalError internalError) {
+                    internalError.printStackTrace();
+                }
                 return objectMapper.writeValueAsString("OK");
             } else {
                 return objectMapper.writeValueAsString(new ErrorClass("Incorrect password", 5));
@@ -78,11 +89,8 @@ public class Main {
 
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 1));
-//            } catch (WebError ex) {
-//                System.out.println("IOEX " + ex.getMessage());
-//
-//                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 10));
-
+            } catch (InternalError internalError) {
+                return objectMapper.writeValueAsString(new ErrorClass(internalError.getMessage(), internalError.getErrorCode()));
             }
             return objectMapper.writeValueAsString("OK");
 
@@ -90,19 +98,22 @@ public class Main {
         get("/modifyStatus", (request, response) -> {
             String requestedPin = request.queryParams("pin");
             if (requestedPin.equalsIgnoreCase(configReader.readPropertiesFile("statusModifyPin"))) {
-               try {
-                   String mcUsername = request.queryParams("mcUsername");
-                   Application application = applicationUtil.getApplication(mcUsername);
-                   int newStatus = Integer.parseInt(request.queryParams("status")) + application.getStatus();
-                   application.setStatus(newStatus);
-                   applicationUtil.updateApplication(application, mcUsername);
-                   return objectMapper.writeValueAsString(newStatus);
+                try {
+                    String mcUsername = request.queryParams("mcUsername");
+                    Application application = applicationUtil.getApplication(mcUsername);
+                    int newStatus = Integer.parseInt(request.queryParams("status")) + application.getStatus();
+                    application.setStatus(newStatus);
+                    applicationUtil.updateApplication(application, mcUsername);
+                    return objectMapper.writeValueAsString(newStatus);
                 } catch (SQLException ex) {
                     return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), 1));
+                } catch (InternalError ex) {
+                    return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
                 }
             } else {
                 return objectMapper.writeValueAsString(new ErrorClass("Incorrect Server Verification Pin", 9));
             }
+
         });
         get("/getApplicationData", (request, response) -> {
             String mcUser = request.queryParams("username");
@@ -115,9 +126,6 @@ public class Main {
                 return objectMapper.writeValueAsString(error);
             }
         });
-        get("/linkMCAccount", (request, response) -> {
-            return "OK";
-        });
         get("/changeUsername", (request, response) -> {
             Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
             try {
@@ -129,6 +137,9 @@ public class Main {
                 return objectMapper.writeValueAsString("OK");
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
+            } catch (InternalError ex) {
+                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+
             }
 
 
@@ -142,23 +153,125 @@ public class Main {
                 return objectMapper.writeValueAsString("OK");
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
+            } catch (InternalError ex) {
+                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+
             }
 
         });
-        get("/verifyEmail", (request, response) -> {
+        get("/verifyDiscord", (request, response) -> {
+            String type = request.queryParams("type");
             String user = request.queryParams("user");
-            Account account = accountUtil.getAccount(user);
-            String code = request.queryParams("emailVerification");
+            String code = request.queryParams("discordVerification");
             try {
-                verificationUtil.handleEmail(code, account);
-                return objectMapper.writeValueAsString("OK");
+                if (type.equalsIgnoreCase("account")) {
+                    Account account = accountUtil.getAccount(user);
+                    verificationUtil.handleDiscord(code, account);
+                    response.redirect("./verify.html");
+                    return objectMapper.writeValueAsString("OK");
+                } else if (type.equalsIgnoreCase("application")) {
+                    Application application = applicationUtil.getApplication(user);
+                    verificationUtil.handleDiscord(code, application);
+                    response.redirect("./verify.html");
+                    return objectMapper.writeValueAsString("OK");
+                } else {
+                    return objectMapper.writeValueAsString(new ErrorClass("Incorrect Type '" + type + "', was not of a recognizable data set", 13));
+                }
+
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("Internal DataBase Error, Please Contact Administration", 1));
-            } catch (WebError ex) {
+            } catch (InternalError ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("Email Failed to Send", 7));
             }
 
 
+        });
+        get("/verifyMC", (request, response) -> {
+            String type = request.queryParams("type");
+            String user = request.queryParams("user");
+            String code = request.queryParams("mcverification");
+
+            if (type.equalsIgnoreCase("application")) {
+                Application application = applicationUtil.getApplication(user);
+                try {
+                    verificationUtil.handleMinecraft(code, application);
+                } catch (InternalError ex) {
+                    return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+                }
+            } else if (type.equalsIgnoreCase("account")) {
+                Account account = accountUtil.getAccount(user);
+                try {
+                    verificationUtil.handleMinecraft(code, account);
+                } catch (InternalError ex) {
+                    return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+                }
+            } else {
+                return objectMapper.writeValueAsString(new ErrorClass("Incorrect Type '" + type + "', was not of a recognizable data set", 13));
+            }
+            response.redirect("./verify.html");
+            return objectMapper.writeValueAsString("OK");
+        });
+        get("/getMCVerification", (request, response) -> {
+            String username = request.queryParams("mcUser");
+            MCReturnableLinks links = new MCReturnableLinks();
+            try {
+                Application application = applicationUtil.getApplication(username);
+                if (application.getMinecraftVerifyCode() != null && !application.getMinecraftVerifyCode().equalsIgnoreCase("NULL")) {
+
+                    String link = configReader.getTesting() ? "http://localhost:4567/verifyMC?type=application&user=" + application.getId() + "&mcverification=" + application.getMinecraftVerifyCode() : "http://questcraft.net/verifyMC?type=application&user=" + application.getId() + "&mcverification=" + application.getMinecraftVerifyCode();
+                    links.setApplication(link);
+                    links.setAppUser(application.getPendingMCUser());
+                }
+            } catch (SQLException ex) { }
+            try {
+                Account account = accountUtil.getAccount(username);
+                if (account.getMcVerifyCode() != null && !account.getMcVerifyCode().equalsIgnoreCase("NULL")) {
+                    String link = configReader.getTesting() ? "http://localhost:4567/verifyMC?type=account&user=" + account.getUsername() + "&mcverification=" + account.getMcVerifyCode() : "http://questcraft.net/verifyMC?type=account&user=" + account.getUsername() + "&mcverification=" + account.getMcVerifyCode();
+                    links.setAccount(link);
+                    links.setAccountUser(account.getUsername());
+                }
+            } catch (SQLException ex) { }
+            return objectMapper.writeValueAsString(links);
+        });
+        get("/addPendingEmail", (request, response) -> {
+            String uuid = request.queryParams("UUID");
+            String email = request.queryParams("email");
+            try {
+                Account account = accountSessions.getUserInfo(uuid);
+                account.setPendingEmail(email);
+                verificationUtil.verifyEmail(account);
+                return objectMapper.writeValueAsString("OK");
+            } catch (AccountException ex) {
+                return new ErrorClass("Incorrect Session UUID", 2);
+            } catch (InternalError internalError) {
+                return new ErrorClass(internalError.getMessage(), internalError.getErrorCode());
+            }
+        });
+
+        get("/verifyEmail", (request, response) -> {
+            String type = request.queryParams("type");
+            String user = request.queryParams("user");
+            String code = request.queryParams("emailVerification");
+            try {
+                if (type.equalsIgnoreCase("account")) {
+                    Account account = accountUtil.getAccount(user);
+                    verificationUtil.handleEmail(code, account);
+                    return objectMapper.writeValueAsString("OK");
+                } else if (type.equalsIgnoreCase("application")) {
+                    Application application = applicationUtil.getApplication(user);
+                    verificationUtil.handleEmail(code, application);
+                    response.redirect("./verify.html");
+                    return objectMapper.writeValueAsString("OK");
+                } else {
+                    return objectMapper.writeValueAsString(new ErrorClass("Incorrect Type '" + type + "', was not of a recognizable data set", 13));
+                }
+
+
+            } catch (SQLException ex) {
+                return objectMapper.writeValueAsString(new ErrorClass("Internal DataBase Error, Please Contact Administration", 1));
+            } catch (InternalError ex) {
+                return objectMapper.writeValueAsString(new ErrorClass("Email Failed to Send", 7));
+            }
 
 
         });
@@ -205,6 +318,18 @@ public class Main {
         });
         get("/verify", (request, response) -> accountSessions.checkUUID(request.queryParams("UUID")));
 
+        get("/tester", (request, response) -> {
+            if (configReader.getTesting()) {
+                //run code below
+
+                response.redirect("./verify.html");
+
+
+                return objectMapper.writeValueAsString("OK");
+            } else {
+                return objectMapper.writeValueAsString(new ErrorClass("Sorry, were currently in Production mode and this feature is not available", 17));
+            }
+        });
 
         options("/*",
                 (request, response) -> {

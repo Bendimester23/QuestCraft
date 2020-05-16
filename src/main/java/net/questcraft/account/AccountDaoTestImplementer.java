@@ -1,34 +1,39 @@
 package net.questcraft.account;
 
 
-import net.questcraft.mysqlcontacter.MySQLUtil;
-
-
+import net.questcraft.ConfigReader;
+import net.questcraft.ORLayerUtil;
+import net.questcraft.ORSetup;
+import net.questcraft.errors.InternalError;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
 public class AccountDaoTestImplementer implements AccountDAO {
-    MySQLUtil contact = MySQLUtil.getInstance();
-    @Override
-    public Account getAccount(String userName) throws SQLException {
-        return contact.getAccount(userName);
+    ORLayerUtil contact;
+    public AccountDaoTestImplementer() {
+        ConfigReader configReader = new ConfigReader();
+        contact = ORSetup.setConfiguration(configReader.readPropertiesFile("url"), configReader.readPropertiesFile("password"), configReader.readPropertiesFile("username"), "testAccountData");
     }
 
     @Override
-    public void createAccount(Account account) throws SQLException {
-        String update = "INSERT INTO testAccountData (username, password, mcUser, email) VALUES ('" + account.getUsername() + "', '" + account.getPassword() + "', '" + account.getInGameUser() + "', '" + account.getEmail() + "')";
-        contact.updateSQL(update);
+    public Account getAccount(String userName) throws SQLException, InvocationTargetException, IllegalAccessException {
+        return (Account) contact.getSQLData(new Account(), userName);
     }
 
     @Override
-    public void updateAccount(Account account, String user) throws SQLException {
-        String update = "UPDATE testAccountData SET username = '" + account.getUsername() + "', password = '" + account.getPassword() + "', mcUser = '" + account.getInGameUser() + "', email = '" + account.getEmail() + "', profilePic = '" + account.getProfilePic() + "', emailVerifyCode = '" + account.getEmailVerifyCode() + "', pendingMCUser = '" + account.getPendingMCUser() + "', pendingEmail = '" + account.getPendingEmail() + "' WHERE username = '" + user + "';";
-        contact.updateSQL(update);
+    public void createAccount(Account account) throws SQLException, InvocationTargetException, IllegalAccessException {
+        contact.createSQL(account);
     }
 
     @Override
-    public void deleteAccount(String user) throws SQLException {
-        String smt = "Delete From testAccountData Where username = '" + user + "';";
-        contact.updateSQL(smt);
+    public void updateAccount(Account account, String user) throws SQLException, InvocationTargetException, IllegalAccessException, InternalError {
+        contact.updateSQL(account, user);
     }
+
+    @Override
+    public void deleteAccount(String user) throws SQLException, InvocationTargetException, IllegalAccessException {
+        contact.delSQL(new Account(), user);
+    }
+
 
 }

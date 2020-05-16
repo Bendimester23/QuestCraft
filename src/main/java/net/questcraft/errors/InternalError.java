@@ -1,7 +1,7 @@
-package net.questcraft;
+package net.questcraft.errors;
 
-public class ErrorClass  {
-    public ErrorClass(String message, int code) {
+public class InternalError extends Throwable {
+    public InternalError(String message, int code) {
         this.message = message;
         this.errorCode = code;
     }
@@ -16,13 +16,18 @@ public class ErrorClass  {
     //Email Failed to Send: 7
     //IOEXpetion(discord send failed): 8
     //Incorrect Server Pin: 9
-
+    //InternalError(data not recognised): 13
+    //Unfinished Feature: 14
     //NODE ERROR CODES:
     //10: couldnt find user in server
     //12 couldnt contact discord BOt: 12
-
-    //General Errors:
+    //incorrect verification code: 15
     //Unidentied Error: 11
+    //no PRI keys: 16
+    //not in testing mode: 17
+    //No Annotation defining Key: 18
+    public InternalError() {
+    }
 
     public String getMessage() {
         return message;
@@ -38,9 +43,5 @@ public class ErrorClass  {
 
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public String toString() {
-        return "message: " + getMessage() + ", errorCode: " + getErrorCode();
     }
 }

@@ -1,6 +1,7 @@
 package net.questcraft.account;
 
 import javax.security.auth.login.AccountException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class AccountSessions {
     public String getRandomUUID() {
         return UUID.randomUUID().toString();
     }
-    public Account getUserInfo(String uuid) throws SQLException, AccountException {
+    public Account getUserInfo(String uuid) throws SQLException, AccountException, InvocationTargetException, IllegalAccessException {
         System.out.println("getUserInfo Called");
         if (checkUUID(uuid)) {
             System.out.println("found UUid and getting info");

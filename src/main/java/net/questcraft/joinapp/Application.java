@@ -1,39 +1,66 @@
 package net.questcraft.joinapp;
 
-import net.questcraft.verifier.VerificationData;
+import net.questcraft.smtcreator.TableData;
+import net.questcraft.smtcreator.TableKey;
 
-public class Application implements VerificationData {
+public class Application implements TableData {
     String questions;
     String mcUsername;
     String discordUsername;
     String email;
     String questCraftAccount;
-    String pendingMC;
+    String pendingMCUser;
     String pendingEmail;
-    String pendingEmailCode;
+    String emailVerifyCode;
+    String pendingDiscordUser;
+    Integer status;
+    String discordVerifyCode;
+    String minecraftVerifyCode;
+    Integer id;
 
-    public Application(String questions, String mcUsername, String discordUsername, String email, String questCraftAccount, String pendingMC, String pendingEmail, String pendingEmailCode, String pendingDiscord, int status) {
+    public Application(String questions, String mcUsername, String discordUsername, String email, String questCraftAccount, String pendingMC, String pendingEmail, String emailVerifyCode, String pendingDiscord, Integer status, String minecraftVerifyCode, String discordVerifyCode, Integer id) {
         this.questions = questions;
         this.mcUsername = mcUsername;
         this.discordUsername = discordUsername;
         this.email = email;
         this.questCraftAccount = questCraftAccount;
-        this.pendingMC = pendingMC;
+        this.pendingMCUser = pendingMC;
         this.pendingEmail = pendingEmail;
-        this.pendingEmailCode = pendingEmailCode;
-        this.pendingDiscord = pendingDiscord;
+        this.emailVerifyCode = emailVerifyCode;
+        this.pendingDiscordUser = pendingDiscord;
         this.status = status;
+        this.minecraftVerifyCode = minecraftVerifyCode;
+        this.discordVerifyCode = discordVerifyCode;
+        this.id = id;
     }
 
-    String pendingDiscord;
-    int status;
 
-    public String getPendingMC() {
-        return pendingMC;
+    public Integer getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
+
+    public String getDiscordVerifyCode() {
+        return discordVerifyCode;
     }
 
-    public void setPendingMC(String pendingMC) {
-        this.pendingMC = pendingMC;
+    public void setDiscordVerifyCode(String discordVerifyCode) {
+        this.discordVerifyCode = discordVerifyCode;
+    }
+
+    public String getMinecraftVerifyCode() {
+        return minecraftVerifyCode;
+    }
+
+    public void setMinecraftVerifyCode(String minecraftVerifyCode) {
+        this.minecraftVerifyCode = minecraftVerifyCode;
+    }
+
+    public String getPendingMCUser() {
+        return pendingMCUser;
+    }
+
+    public void setPendingMCUser(String pendingMCUser) {
+        this.pendingMCUser = pendingMCUser;
     }
 
     public String getPendingEmail() {
@@ -44,30 +71,29 @@ public class Application implements VerificationData {
         this.pendingEmail = pendingEmail;
     }
 
-    public String getPendingEmailCode() {
-        return pendingEmailCode;
+    public String getEmailVerifyCode() {
+        return emailVerifyCode;
     }
 
-    public void setPendingEmailCode(String pendingEmailCode) {
-        this.pendingEmailCode = pendingEmailCode;
+    public void setEmailVerifyCode(String emailVerifyCode) {
+        this.emailVerifyCode = emailVerifyCode;
     }
 
-    public String getPendingDiscord() {
-        return pendingDiscord;
+    public String getPendingDiscordUser() {
+        return pendingDiscordUser;
     }
 
-    public void setPendingDiscord(String pendingDiscord) {
-        this.pendingDiscord = pendingDiscord;
+    public void setPendingDiscordUser(String pendingDiscordUser) {
+        this.pendingDiscordUser = pendingDiscordUser;
     }
 
 
-
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
-        status = status;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 
@@ -111,14 +137,15 @@ public class Application implements VerificationData {
         this.questCraftAccount = questCraftAccount;
     }
 
-    public Application(String questions, String mcUsername, String discordUsername, String email, String questCraftAccount, int status) {
+    public Application(String questions, String mcUsername, String discordUsername, String email, String questCraftAccount, Integer status) {
         this.questions = questions;
-        this.mcUsername = mcUsername;
-        this.discordUsername = discordUsername;
-        this.email = email;
+        this.pendingMCUser = mcUsername;
+        this.pendingDiscordUser = discordUsername;
+        this.pendingEmail = email;
         this.questCraftAccount = questCraftAccount;
         this.status = status;
     }
-
-
+    @TableKey(keys = {"id", "mcUsername", "pendingMCUser"}, primKey = "id")
+    public Application() {
+    }
 }
