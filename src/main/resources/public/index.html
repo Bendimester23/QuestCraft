@@ -1,120 +1,177 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <script src="popupText.js"></script>
-    <!--<link rel="preload" href="SliderImages/" as="image">-->
-    <!--web Browser Title-->
-    <title>QuestCraft - Home</title>
-    <!--Link to Css File-->
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <!--Html Linking to JavaScript File-->
-    <script src="ImageSlider.js"></script>
-    <script src="Copy.js"></script>
-    <script src="Cookies.js"></script>
-    <script src="DOCLoader.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="minecraft smp, QuestCraft, best smp" />
+
+    <title>QuestCraft</title>
+
+    <link rel="icon" type="image/png" href="img/QuestCraftLogo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
 </head>
+
 <body>
-<!--Banner + Logo-->
-<div class="banner">
-    <div id="containinglogoDiv">
-        <img id="Logo" src="Logos/QuestCraftLogo.png" alt="Logo"/>
-        <span class="logoText">QuestCraft</span>
-        <div id="DivH2">IP = '192.99.182.8:25684'
-            <button id="copyText" onclick="copyToClip('192.99.182.8:25684')">Copy</button>
+    <div class="full-nav">
+        <div class="nav-bar" id="nav-bar">
+            <div class="logo-menu" id="logo-menu">
+                <div class="logo">
+                    <img src="img/QuestCraftLogo.png" alt="Questcraft logo">
+                    <h1>QuestCraft</h1>
+                </div>
+                <div class="menu" id="nav-mobile"><i class="fas fa-bars"></i></div>
+            </div>
+            <div class="nav" id="nav">
+                <ul>
+
+                    <a class="active" href="index.html">
+                        <li>Home</li>
+                    </a>
+                    <a href="html/Games.html">
+                        <li>Games</li>
+                    </a>
+                    <a href="html/Rules.html">
+                        <li>Rules</li>
+                    </a>
+                    <a href="html/Staff.html">
+                        <li>Staff</li>
+                    </a>
+                    <a href="html/About.html">
+                        <li>About</li>
+                    </a>
+                    <a href="html/Apply.html">
+                        <li>Apply!</li>
+                    </a>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="center" id="center">
+            <div class="title">
+                <h1>QuestCraft</h1>
+            </div>
+            <span id="typed" class="desc"></span>
+            <div id="typed-strings">
+                <p>mc.QuestCraft.net</p>
+                <p>Best Survival Server!</p>
+                <p>soon it will be 1.16!</p>
+            </div>
+        </div>
+        <div class="main-img"></div>
+    </div>
+
+    <div class="news-login">
+        <div class="login-sector">
+            <div class="sec">
+                <h1>Apply Here!</h1>
+                <a class="log-button first-log" href="html/Apply.html">Apply</a>
+            </div>
+            <div class="sec">
+                <h1>Join Us</h1>
+                <a class="log-button" href="html/Login.html">Log In</a>
+                <a class="log-button" href="html/Register.html">Sign Up</a>
+            </div>
+            <h1>Socialmedia</h1>
+            <div class="icons">
+                <a target="_blank" href="https://discord.gg/4JwPCxN"><img class="icon"
+                        src="img/Socialmedia/discord_101785.png"></a>
+                <a target="_blank" href="https://www.youtube.com/channel/UCigGxg0kOHJnM_K_kRdYAoA"><img class="icon"
+                        src="img/Socialmedia/youtube_101764.png"></a>
+                <a target="_blank" href="mailto:chestly.questcraft@gmail.com"><img class="icon"
+                        src="img/Socialmedia/1486564396-mail_81524.png"></a>
+                <a target="_blank" href="https://www.planetminecraft.com/server/questcraft-1-14-3/"><img class="icon"
+                        src="img/Socialmedia/vote_pmc.png"></a>
+            </div>
+
+        </div>
+        <div class="news-sector">
+            <div>
+                <h1>A Super Duper Title</h1>
+                <img src="img/Screenshot_1.png">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque arcu odio, elementum ac egestas et,
+                    fringilla vitae nulla. Ut sed scelerisque urna. Curabitur sodales ante nibh, at euismod lorem ornare
+                    ut. Fusce ac nunc rhoncus, fermentum orci eget, mattis ante. Quisque vel felis quis magna placerat
+                    pellentesque ac vitae libero. Vestibulum at euismod urna, maximus bibendum ante. Suspendisse
+                    potenti.
+                </p>
+                <a href="">More...</a>
+            </div>
+            <div>
+                <h1>A Super Duper Title</h1>
+                <img src="img/Screenshot_1.png">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque arcu odio, elementum ac egestas et,
+                    fringilla vitae nulla. Ut sed scelerisque urna. Curabitur sodales ante nibh, at euismod lorem ornare
+                    ut. Fusce ac nunc rhoncus, fermentum orci eget, mattis ante. Quisque vel felis quis magna placerat
+                    pellentesque ac vitae libero. Vestibulum at euismod urna, maximus bibendum ante. Suspendisse
+                    potenti.
+                </p>
+                <a href="">More...</a>
+            </div>
+            <div>
+                <h1>A Super Duper Title</h1>
+                <img src="img/Screenshot_1.png">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque arcu odio, elementum ac egestas et,
+                    fringilla vitae nulla. Ut sed scelerisque urna. Curabitur sodales ante nibh, at euismod lorem ornare
+                    ut. Fusce ac nunc rhoncus, fermentum orci eget, mattis ante. Quisque vel felis quis magna placerat
+                    pellentesque ac vitae libero. Vestibulum at euismod urna, maximus bibendum ante. Suspendisse
+                    potenti.
+                </p>
+                <a href="">More...</a>
+            </div>
         </div>
     </div>
 
-    <!--Log in And Sign up-->
+    <div class="footer">
 
-    <ul class="registerLink">
-
-
-    </ul>
-    <div>
-        Version: 1.5.0
-    </div>
-</div>
-<!--Top Bar navigation-->
-<div class="nav">
-    <ul id="navUl">
-        <li><a href="index.html" id="hiddenlink">Home</a></li>
-        <li><a href="About.html" id="hiddenlink">About</a></li>
-        <li><a href="games.html" id="hiddenlink">Games</a></li>
-        <li><a href="Rules.html" id="hiddenlink">Rules</a></li>
-        <li><a href="News.html" id="hiddenlink">News</a></li>
-        <li><a href="staff.html" id="hiddenlink">Staff</a></li>
-        <li><a href="apply.html" id="hiddenlink">Apply Now!</a></li>
-
-    </ul>
-</div>
-
-<!--First Paragragh and Welcome Bar-->
-<div class="Welcome">
-    <h1>Welcome!
-    </h1>
-    <span>
-         Welcome to QuestCraft! This is our new official website where you can, find information about us, contact admins, and play fun games with friends. The world online and in minecraft is newer and better for you to explore with QuestCraft. Join Today!
-         </span>
-</div>
-<hr>
-<!--image Slider-->
-<div id="pictures">
-    <div id="PicContainer">
-        <!--Changing Image-->
-        <img src="SliderImages/Spawn.png" id="SlidingImage">
-        <!--License-->
-        <div class="overlay"><span id="imageLicense">"QuestCraft Spawn" by Chestly is licensed under CC BY-NC-ND 4.0 (CC Search)</span>
+        <div class="footer-social">
+            <h1>Socialmedia</h1>
+            <div class="icons">
+                <a target="_blank" href="https://discord.gg/4JwPCxN"><img class="icon"
+                        src="img/Socialmedia/discord_101785.png"></a>
+                <a target="_blank" href="https://www.youtube.com/channel/UCigGxg0kOHJnM_K_kRdYAoA"><img class="icon"
+                        src="img/Socialmedia/youtube_101764.png"></a>
+                <a target="_blank" href="mailto:chestly.questcraft@gmail.com"><img class="icon"
+                        src="img/Socialmedia/1486564396-mail_81524.png"></a>
+                <a target="_blank" href="https://www.planetminecraft.com/server/questcraft-1-14-3/"><img class="icon"
+                        src="img/Socialmedia/vote_pmc.png"></a>
+            </div>
+        </div>
+        <div class="logo-footer">
+            <img src="img/QuestCraftLogo.png" alt="Questcraft logo">
+            <h1>QuestCraft</h1>
+            <p>© Questcraft 2020</p>
         </div>
     </div>
-    <!--Buttons to Slide Image-->
-    <button id="next" class="sliderButton" onclick="next()">&gt</button>
-    <button id="prev" class="sliderButton" onclick="prev()">&lt</button>
-</div>
-<hr>
-<div id="homePromo">
-    <div class="promotional">Join Us At:</div>
-    <div class="promoLinks">
-        <a href="mailto:chestly.questcraft@gmail.com" title="chestly.questcraft@gmail.com"><img
-                src="Logos/Gmail-Logo.png" alt="GoogleMail"/></a>
-        <a href="https://discord.gg/4JwPCxN" target="blank"><img src="Logos/discord-logo.png" alt="Discord"/></a>
-        <a href="https://www.youtube.com/channel/UCigGxg0kOHJnM_K_kRdYAoA" target="blank"><img
-                src="Logos/YouTube-icon.png" alt="Youtube"/></a>
-        <a href="https://www.planetminecraft.com/server/questcraft-1-14-3/" target="blank"
-           title="IP = '192.99.182.8:25684'"><img src="Logos/planetminecraft.png" alt="PMC"/></a>
-    </div>
-</div>
-<hr>
-<!--Second paragraph classed with welcome-->
-<div class="Welcome">
-         <span>
-         QuestCraft is a privatly owned SMP whitelisted server. In QuestCraft we are all about having tons of fun with friends and creating/playing in a great communtity. all you have to do to apply is join our Discord, (In the Footer Or Click <a
-                 href="https://discord.gg/4JwPCxN">Here</a>) or you can Apply online which is a new feature coming soon!
-		 
-         </span>
-</div>
-<hr>
-<!--Footer-->
-<footer>
-    <!--Promotional Div links, discord etc...-->
-    <div class="promoDiv">
-        <div class="promotional">Join Us At:</div>
-        <div class="promoLinks">
-            <a href="mailto:chestly.questcraft@gmail.com" title="chestly.questcraft@gmail.com"><img
-                    src="Logos/Gmail-Logo.png" alt="GoogleMail"/></a>
-            <a href="https://discord.gg/4JwPCxN" target="blank"><img src="Logos/discord-logo.png" alt="Discord"/></a>
-            <a href="https://www.youtube.com/channel/UCigGxg0kOHJnM_K_kRdYAoA" target="blank"><img
-                    src="Logos/YouTube-icon.png" alt="Youtube"/></a>
-            <a href="https://www.planetminecraft.com/server/questcraft-1-14-3/" target="blank"
-               title="IP = '192.99.182.8:25684'"><img src="Logos/planetminecraft.png" alt="PMC"/></a>
-        </div>
-    </div>
-    <!--Logo plus License for Website-->
-    <div class="smallContaininglogoDiv">
-        <img class="Logo" src="Logos/QuestCraftLogo.png" alt="Logo"/>
-        <span class="logoText">QuestCraft</span>
-    </div>
-    <span>This work is licensed under a <br>Creative Commons Attribution-NonCommercial-<br>NoDerivatives 4.0 International License</span>
-</footer>
 
+    <script>
+        var typed = new Typed('#typed', {
+            strings: [
+                'mc.QuestCraft.net',
+                'Best Survival Server!',
+                'Soon it will be 1.16!'
+            ],
+            stringsElement: '#typed-strings',
+            typeSpeed: 35,
+            startDelay: 20,
+            backSpeed: 30,
+            backDelay: 500,
+            strings: ['First ^1000 sentence.', 'Second sentence.'],
+            loop: true
+        });
+
+    </script>
+    <script src="nav.js">
+
+    </script>
 </body>
+
 </html>

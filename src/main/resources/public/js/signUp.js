@@ -26,7 +26,6 @@ function submitClicked() {
 		if (password.value != checkPassword.value) {
 			checkPassword.setCustomValidity("Passwords Dont Match");
 		}
-		document.getElementsByClassName("hiddenSubmit")[0].click();
 	 } else if (password.value != checkPassword.value) {
 		checkPassword.setCustomValidity("Passwords Dont Match");	
 	} else {
@@ -34,6 +33,7 @@ function submitClicked() {
 		allFieldsFilled();
 
 	}
+	document.getElementsByClassName("hiddenSubmit")[0].click();
 }
 
 
@@ -49,7 +49,7 @@ function allFieldsFilled() {
 //			"createdOn": today.getMonth() + 1 + "-" + today.getDate() + "-" + today.getFullYear(),
 //		}
 		loadingOn();
-		createDialogue("Creating Account", "We are signing you up! This may take a few seconds");
+		//createDialogue("Creating Account", "We are signing you up! This may take a few seconds");
 		contactServer("signup", {username: username.value, password: password.value, email: email.value, mcUser: inGameUser.value}, function(response) {
 			loadingOff();
 			if (Object.keys(response)[0] == "ErrorClass") {
