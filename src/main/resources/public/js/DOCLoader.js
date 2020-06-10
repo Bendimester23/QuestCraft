@@ -1,45 +1,53 @@
 window.onload = function () {
 	const fileName = location.pathname.split("/").slice(-1)[0].slice(0, -5);
-	this.console.log(fileName);
+	//this.console.log(fileName);
 	const registerTabs = document.getElementsByClassName("registerLink");
-	const nav = document.getElementById("navUl");
+	//const nav = document.getElementById("navUl");
 	let verified = false;
+	const navHTML = document.getElementById("nav");
+	navHTML.innerHTML = getNav();
 	this.contactServer("verify", { UUID: getCookie("UUID") }, function (response) {
 		verified = response;
 		if (verified == true) {
-			
-			registerTabs[0].innerHTML = '<li><a href = "Account.html" id = "hiddenlink">Account</a></li><li><a href = "logOut.html" id = "hiddenlink">Log Out</a></li>';
+					const sideBar = document.getElementsByClassName("login-sector")[0];
 
-			if (fileName == "games") {
-				const notifySign = document.getElementById("NotifySign");
-				notifySign.parentNode.removeChild(notifySign);
-				const games = document.getElementById("actualGames");
-				games.style.display = "block";
-			} else if (fileName == "Account") {
-				const dataDiv = document.getElementsByClassName("accountData");
-				contactServer("getInfo", { UUID: getCookie("UUID") }, function(response) {
-					console.log(Object.keys(response)[0]);
-					if (Object.keys(response)[0] == "ErrorClass") {
-						const message = response[Object.keys(response)[0]].message
-						const code = response[Object.keys(response)[0]].errorCode;
-		
-						createDialogue("Invalid User", message, code);
-					} else if (Object.keys(response)[0] == "Account") {
-						const name = response[Object.keys(response)[0]].username;
-						const IGN = response[Object.keys(response)[0]].inGameUser;
-						const email = response[Object.keys(response)[0]].email;
-						const pic = response[Object.keys(response)[0]].profilePic;
-						dataDiv[0].innerHTML += name;
-						dataDiv[1].innerHTML += IGN;
-						dataDiv[2].innerHTML += email;
-						if (pic != null) {
-							document.getElementById("profilePicture").src = pic;
-						}
-					}
-				});
-			} 
+                if (sideBar != undefined) {
+                    const logins = document.getElementById("logins");
+                    logins.innerHTML += '<h1>Your Stuff</h1><a class="log-button" href="html/Account.html">Account</a><button class="log-button" onclick="logOut()">Log Out</button>';
+            	    logins.setAttribute("style", "display: inherit;")
+            	}
+			//registerTabs[0].innerHTML = '<li><a href = "Account.html" id = "hiddenlink">Account</a></li><li><a href = "logOut.html" id = "hiddenlink">Log Out</a></li>';
+
+//			if (fileName == "Account") {
+//				const dataDiv = document.getElementsByClassName("accountData");
+//				contactServer("getInfo", { UUID: getCookie("UUID") }, function(response) {
+//					console.log(Object.keys(response)[0]);
+//					if (Object.keys(response)[0] == "ErrorClass") {
+//						const message = response[Object.keys(response)[0]].message
+//						const code = response[Object.keys(response)[0]].errorCode;
+//
+//						createDialogue("Invalid User", message, code);
+//					} else if (Object.keys(response)[0] == "Account") {
+//						const name = response[Object.keys(response)[0]].username;
+//						const IGN = response[Object.keys(response)[0]].inGameUser;
+//						const email = response[Object.keys(response)[0]].email;
+//						const pic = response[Object.keys(response)[0]].profilePic;
+//						dataDiv[0].innerHTML += name;
+//						dataDiv[1].innerHTML += IGN;
+//						dataDiv[2].innerHTML += email;
+//						if (pic != null) {
+//							document.getElementById("profilePicture").src = pic;
+//						}
+//					}
+//				});
+//			}
 		} else {
-			registerTabs[0].innerHTML = '<li><a href = "SignUp.html" id = "hiddenlink">Sign Up</a></li><li><a href = "LogIn.html" id = "hiddenlink">Log In</a></li>';
+			const sideBar = document.getElementsByClassName("login-sector")[0];
+            	if (sideBar != undefined) {
+                    const logins = document.getElementById("logins");
+                    logins.innerHTML += '<h1>Join Us</h1><a class="log-button" href="html/Login.html">Log In</a><a class="log-button" href="html/Register.html">Sign Up</a>';
+            	    logins.setAttribute("style", "display: inherit;")
+            	}
 		}
 	});
 

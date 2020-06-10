@@ -8,6 +8,12 @@
 
     <title>QuestCraft</title>
 
+    <script src="../js/apply.js"></script>
+    <script src="../js/DOCLoader.js"></script>
+    <script src="../js/Cookies.js"></script>
+    <script src="../js/popupText.js"></script>
+    <script src="../js/HTMLElements.js"></script>
+
     <link rel="icon" type="image/png" href="../img/QuestCraftLogo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -30,28 +36,6 @@
                 <div class="menu" id="nav-mobile"><i class="fas fa-bars"></i></div>
             </div>
             <div class="nav" id="nav">
-                <ul>
-
-                    <a href="../index.html">
-                        <li>Home</li>
-                    </a>
-                    <a href="../html/Games.html">
-                        <li>Games</li>
-                    </a>
-                    <a href="../html/Rules.html">
-                        <li>Rules</li>
-                    </a>
-                    <a href="../html/Staff.html">
-                        <li>Staff</li>
-                    </a>
-                    <a href="../html/About.html">
-                        <li>About</li>
-                    </a>
-                    <a class="active" href="../html/Apply.html">
-                        <li>Apply!</li>
-                    </a>
-
-                </ul>
             </div>
         </div>
     </div>
@@ -64,7 +48,32 @@
         <div class="main-img"></div>
     </div>
     <div class="sector">
-        <h1>Work in progress</h1>
+        <form>
+            <p>* = required</p>
+            <label for="MCusername" >MC Username*</label>
+            <input id="MCusername" type="text" minlength="3" maxlength="16" required placeholder="IG verification will be sent if completed">
+            <label for="email" placeholder="Email verification will be sent if completed">Email</label>
+            <input id="email" type="email" minlength="3" maxlength="320">
+            <label for="discordUser">Discord Username And ID(Discriminator)*</label>
+            <input id="discordUser" type="text" minlength="2" maxlength="32" required placeholder="Username">
+            <input id="discordPin" type="text" minlength="4" maxlength="4" required placeholder="Discriminator">
+            <span class="centered">To play in QuestCraft a Discord Account is required</span>
+            <label> Why do you want to join this server, or why a SMP*</label>
+            <textarea id="q1" type="text" maxlength="1000"
+                      placeholder="ex. 1) Ive been playing MC since Beta 1.6 and absolutely love the game, im looking for a server that has a great community and will have a fun survival time!" required></textarea>
+            <label>What other minecraft expierience have you had in the past*</label>
+            <textarea id="q2" type="text" maxlength="1000" required></textarea>
+            <label>Have you ever played on a SMP before? If so what is that server called*</label>
+            <textarea id="q3" type="text" maxlength="1000" required></textarea>
+            <label>What style of play do you enjoy (redstone, building, adventure, etc... )*</label>
+            <textarea id="q4" type="text" maxlength="1000" required></textarea>
+            <input type="checkbox" name="TermsAndService" value="AgreetoUse" class="textbox" required
+                   id="TermsAndService">
+            <label for="TermsAndService">I agree to the and have read the <a href="Rules.html">Rules</a> in the
+                QuestCraft Community*</label>
+            <input type="submit" class="hiddenSubmit">
+            <input type="button" value="Submit" onclick='submitApp("MCusername", "email", "q1", "q2", "q3", "q4", "TermsAndService", "discordUser", "discordPin")' class="submit"/>
+        </form>
     </div>
     <div class="footer">
 

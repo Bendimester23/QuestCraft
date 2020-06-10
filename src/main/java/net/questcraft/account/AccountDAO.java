@@ -25,4 +25,6 @@ public interface AccountDAO {
 //    void addProfilePic(String URL, String username) throws SQLException;
 //
 //    void addPendingEmail(String user, String value) throws SQLException;
+
+    
 }

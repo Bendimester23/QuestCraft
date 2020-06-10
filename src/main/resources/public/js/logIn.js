@@ -1,11 +1,12 @@
-let username;
-let password;
-let success;
 function checkLogIn() {
-    username = document.getElementById("username");
-    password = document.getElementById("password");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+	const form  = document.getElementsByClassName("form")[0];
     console.log("contacting");
     loadingOn();
+    if (!form.checkValidity()) {
+        	document.getElementsByClassName("hiddenSubmit")[0].click();
+    } else {}
     contactServer("logIn", { "username": username.value, "password":password.value }, function (response)  {
         
         if (Object.keys(response)[0] == "ErrorClass") {
@@ -27,6 +28,5 @@ function checkLogIn() {
         }
 
     });
-
-
 }
+

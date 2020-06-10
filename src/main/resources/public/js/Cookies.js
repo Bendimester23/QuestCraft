@@ -1,18 +1,13 @@
 function setCookie(name, value) {
-	document.cookie = name + "=" + value;
+	document.cookie = name + "=" + value + "; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/";
 }
 
 function getCookie(name) {
 	const docCookie = document.cookie;
-
 	if (docCookie != null) {
-	
 		const cookieArray = docCookie.split(";");
-
 		for (let cookie = 0; cookie < cookieArray.length; cookie++) {
-			
 			const partOfCookie = cookieArray[cookie].split("=");
-			
 			if (partOfCookie[0].trim() == name) {
 				return partOfCookie[1];
 			}

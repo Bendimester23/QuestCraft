@@ -115,4 +115,5 @@ public class Account implements TableData {
     public void setEmailVerifyCode(String emailVerifyCode) {
         this.emailVerifyCode = emailVerifyCode;
     }
+    
 }

@@ -7,7 +7,7 @@
     <meta name="keywords" content="minecraft smp, QuestCraft, best smp"/>
 
     <title>QuestCraft</title>
-    <script src="../js/signUp.js"></script>
+
     <script src="../js/DOCLoader.js"></script>
     <script src="../js/Cookies.js"></script>
     <script src="../js/popupText.js"></script>
@@ -34,57 +34,54 @@
             </div>
             <div class="menu" id="nav-mobile"><i class="fas fa-bars"></i></div>
         </div>
-        <div class="nav" id="nav"></div>
+        <div class="nav" id="nav">
+        </div>
     </div>
 </div>
 <div class="main">
     <div class="center" id="center">
         <div class="title">
-            <h1>Register</h1>
+            <h1>Account</h1>
         </div>
     </div>
     <div class="main-img"></div>
 </div>
 <div class="sector">
-    <h1>Sign Up</h1>
-    <form class="form">
-        <p>* = required</p>
-        <!--Username-->
-        <label for="username">Username*</label>
+    <div class="account-header">
+        <img src="../img/AccountPics/userIcon.png"/>
+        <h1 id="account-name">JOHNY</h1>
+    </div>
+    <hr>
+    <div id="account">
+        <div class="info-card">
+            <img src="../img/AccountPics/settings-icon.png">
 
-        <input type="text" name="username" required id="username" maxlength="20">
-
-        <!--Password-->
-        <label for="password">Password*</label>
-        <input type="password" name="password" required minlength="6" maxlength="128" id="password">
-
-        <!--Validating Password-->
-        <label for="repassword">Check Password*</label>
-        <input type="password" name="repassword" required minlength="6" maxlength="20" id="repassword">
-
-
-        <label for="username">In Game Username</label>
-        <!--Creating a select, going to automate it-->
-        <input type="text" name="mcUser" id="InGameUser" minlength="3" maxlength="16"
-               placeholder="IG verification will be sent if completed">
-
-
-        <!--Email-->
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Email verification will be sent if completed">
-        <!--            <div>A Email Verification will be sent to your address after creating an account if an email is specified</div>-->
-        <!--Agreeing To Rules-->
-        <div id="TermsOfService">
-
-            <label for="TermsAndService"><input type="checkbox" name="TermsAndService" value="AgreetoUse"
-                                                class="textbox" required id="TermsAndService">I agree to the <a
-                    href="Rules.html">Terms of service</a> in the QuestCraft Community</label>
+            <h1>Settings</h1>
+            <p>Change your QuestCraft Account Settings!</p>
+            <a href="">View...</a>
         </div>
-        <!--Submitting-->
-        <input type="submit" class="hiddenSubmit">
-        <input type="button" value="Submit" onclick="submitClicked()" class="submit"/>
-    </form>
-    <!--        <button id = "submit" onclick="submitClicked()">Sign Up</button>-->
+        <div class="info-card">
+            <img src="../img/AccountPics/userInfoIcon.png">
+
+            <h1>Account Info</h1>
+            <p>View your QuestCraft Account Info!</p>
+            <a href="">View...</a>
+        </div>
+        <div class="info-card" id="disabled">
+            <img src="../img/AccountPics/ForumsIcon.png">
+
+            <h1>Forums</h1>
+            <p>Coming Soon...</p>
+            <a href="">View...</a>
+        </div>
+        <div class="info-card" id="disabled">
+            <img src="../img/AccountPics/MCFolder.png">
+
+            <h1>Discord/MC Chat</h1>
+            <p>Coming Soon...</p>
+            <a href="">View...</a>
+        </div>
+    </div>
 </div>
 <div class="footer">
 
@@ -101,6 +98,7 @@
                                                                                                      src="../img/Socialmedia/vote_pmc.png"></a>
         </div>
     </div>
+
     <div class="logo-footer">
         <img src="../img/QuestCraftLogo.png" alt="Questcraft logo">
         <h1>QuestCraft</h1>

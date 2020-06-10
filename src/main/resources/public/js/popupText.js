@@ -21,7 +21,7 @@ function createDialogue (type, text, code) {
 	
 }
 function loadingOn() {
-	document.body.innerHTML += "<img src='randImages/LoadingGif.gif' id='LoadingGif'/>";
+	document.body.innerHTML += "<img src='../img/LoadingGif.gif' id='LoadingGif'/>";
 	curentLoader = document.getElementById("LoadingGif");
 }
 

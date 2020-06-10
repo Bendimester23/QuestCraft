@@ -10,6 +10,8 @@ let email;
 
 function logOut() {
 	setCookie("UUID", null);
+	window.location = "index.html";
+
 }
 
 function submitClicked() {

@@ -151,6 +151,8 @@ p{
     width: 90%;
     margin: 10px auto;
     border-radius: 10px;
+    border: none;
+    cursor: pointer;
 }
 .log-button:hover{
     background-color: rgb(48, 180, 48);
@@ -265,7 +267,7 @@ p{
     margin: 0 auto 20px;
     background-color:  rgb(53, 199, 53);
 }
-.Games{
+.info-card{
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 550px;
@@ -275,15 +277,19 @@ p{
     border-radius: 20px;
 
 }
-.Games img{
+.info-card img{
     width: 100%;
     object-fit: cover;
     height: 200px;
 }
-.Games p{
+#account img {
+    object-fit: contain;
+
+}
+.info-card p{
     padding: 20px;
     text-align: justify;
-}.Games a{
+}.info-card a{
     text-decoration: none;
     color: white;
     background-color: rgb(53, 199, 53);
@@ -296,11 +302,11 @@ p{
     margin: 0 auto 10px;
     border-radius: 15px;
 }
-.Games a:hover{
+.info-card a:hover{
     background-color: rgb(48, 180, 48);
     transition: 0.2s;
 }
-.Games h1{
+.info-card h1{
     margin-bottom: 28px;
 }
 .advanced a{
@@ -454,7 +460,7 @@ p{
     .sector p{
         margin: 15px;
     }
-    .Games{
+    .info-card{
         margin: 25px auto;
         float: none;
         display: table;
@@ -528,7 +534,7 @@ p{
         margin: 20px auto;
         width: 200px;
     }
-    .Games{
+    .info-card{
         width: 90%;
     }.advanced a{
         width: 200px;
@@ -538,7 +544,6 @@ p{
 label {
     display: block;
     margin: 0 auto;
-    font-size: 1.5vh;
     font-family: 'Montserrat', sans-serif !important;
 }
 input {
@@ -568,10 +573,28 @@ input[type=checkbox] {
 label[for=TermsAndService] {
     display: inline;
 }
+@media only screen and (min-width: 800px) {
+    label {
+        margin: 20px 0 20px 0;
+        font-size: 32px;
+
+    }
+}
+@media only screen and (max-width: 801px) {
+    label {
+        margin: 20px 0 20px 0;
+        font-size: 15px;
+
+    }
+}
 .hiddenSubmit {
     display: none;
 }
-input[value=Submit]:hover {
+.submit {
+    width: 9vw;
+    min-width: 100px;
+}
+.submit:hover {
     background-color: rgb(204, 204, 204);
     border-color: rgb(43, 161, 43);
 }
@@ -582,62 +605,38 @@ input[value=Submit]:hover {
 	z-index: 2;
 	bottom: 10px;
 }
-/*popup dialogue*/
-#popup fieldset {
-	font-size: 2vh;
-	height: 18vh;
-	border: solid #505050 5px;
+textarea {
+    display: block;
+    margin: 10px auto;
+    border: solid rgb(53, 199, 53) 5px;
+    border-radius:15px;
+    height: 5vh;
+    min-height: 50px;
+    width: 18vw;
+    min-width: 200px;
 }
-#popup fieldset legend {
-	padding: 10px;
-	background-color: #006600;
-	font-size: 3vh;
+#logins {
+    display: none;
 }
-#popup fieldset .legend {
-
-
-	overflow: hidden;
-	border-radius: 10px;
-
-	min-width: 100px;
-	color: #bfbfbf;
-	font-weight: bold;
-
-	font-family:'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	border: solid #bfbfbf 5px;
+.account-header img {
+    width: 5vw;
+    min-width: 150px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 15px;
 }
-#popup fieldset div {
-
-	margin-bottom: 40px;
-
+.account-header h1 {
+    display: inline-block;
 }
-#closeButtonRight {
-	position: absolute;
-	right: 30px;
-	top: 10px;
-	padding: 0px;
-
+.account-header {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin: 20px 0px;
+        border-radius: 15px;
 }
-#closeButtonRight button {
-	width: 15vw;
-	font-size: 3vh;
-	width: 100%;
-	height: 100%;
-	border-radius: 5px;
-	background-color: #bfbfbf;
-	border: solid #505050 5px;
-}
-#closeButtonRight button:hover {
-	background-color: #b3b3b3;
-}
-#popup {
-	width: 80vw;
-	background-color: #bfbfbf;
-	z-index: 2;
-	position: fixed;
-	bottom: 100vh;
-	left: 10vw;
-	padding: 10px;
-	border-radius: 10px;
-	transition: 0.5s ease;
+#disabled {
+    background-color: rgb(204, 204, 204);
+    pointer-events: none;
+    opacity: 05;
 }
