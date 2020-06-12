@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="popupText.js"></script>
+    <!--<link rel="preload" href="SliderImages/" as="image">-->
+    <!--web Browser Title-->
+    <title>QuestCraft - Apply</title>
+    <!--Link to Css File-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--Html Linking to JavaScript File-->
+    <script src="Copy.js"></script>
+    <script src="Cookies.js"></script>
+    <script src="DOCLoader.js"></script>
+    <script src="apply.js"></script>
+</head>
+
+<body>
+    <!--Banner + Logo-->
+    <div class="banner">
+        <div id="containinglogoDiv">
+            <img id="Logo" src="Logos/QuestCraftLogo.png" alt="Logo" />
+            <span class="logoText">QuestCraft</span>
+            <div id="DivH2">IP = '192.99.182.8:25684'<button id="copyText"
+                    onclick="copyToClip('192.99.182.8:25684')">Copy</button></div>
+        </div>
+
+        <!--Log in And Sign up-->
+
+        <ul class="registerLink">
+
+
+        </ul>
+
+    </div>
+    <!--Top Bar navigation-->
+    <div class="nav">
+        <ul id="navUl">
+            <li><a href="index.html" id="hiddenlink">Home</a></li>
+            <li><a href="About.html" id="hiddenlink">About</a></li>
+            <li><a href="games.html" id="hiddenlink">Games</a></li>
+            <li><a href="Rules.html" id="hiddenlink">Rules</a></li>
+            <li><a href="News.html" id="hiddenlink">News</a></li>
+            <li><a href="staff.html" id="hiddenlink">Staff</a></li>
+            <li><a href="apply.html" id="hiddenlink">Apply Now!</a></li>
+
+        </ul>
+    </div>
+    <div class="centeredList">
+        <h2 class="centered">Application Questions</h2>
+        <ol id="centered">
+            <form>
+                <label for="MCusername">MC Username*</label>
+                <input id="MCusername" type="text" minlength="3" maxlength="16" required>
+                <label for="email">Email</label>
+                <input id="email" type="email" minlength="3" maxlength="320">
+                <label for="discordUser">Discord Username And ID(Discriminator)*</label>
+                <input id="discordUser" type="text" minlength="2" maxlength="32" required placeholder="Username">
+                <input id="discordPin" type="text" minlength="4" maxlength="4" required placeholder="Discriminator">
+                <span class="centered">To play in QuestCraft a Discord Account is required</span>
+                <hr id="smallhr">
+                <li> Why do you want to join this server, or why a SMP</li>
+                <textarea id="q1" type="text" maxlength="1000"
+                    placeholder="ex. 1) Ive been playing MC since Beta 1.6 and absolutely love the game, im looking for a server that has a great community and will have a fun survival time!" required></textarea>
+                <hr id="smallhr">
+                <li>what other minecraft expierience have you had in the past</li>
+                <textarea id="q2" type="text" maxlength="1000" required></textarea>
+                <hr id="smallhr">
+                <li>have you ever played on a SMP before? If so what is that server called</li>
+                <textarea id="q3" type="text" maxlength="1000" required></textarea>
+                <hr id="smallhr">
+                <li>what style of play do you enjoy (etc... redstone, building, adventure</li>
+                    <textarea id="q4" type="text" maxlength="1000" required></textarea>
+                <hr id="smallhr">
+                <input type="checkbox" name="TermsAndService" value="AgreetoUse" class="textbox" required
+                    id="TermsAndService">
+                <label for="TermsAndService">I agree to the and have read the <a href="Rules.html">Rules</a> in the
+                    QuestCraft Community</label>
+                <input type="submit" class="hiddenSubmit" />
+            </form>
+            <button id="submit" onclick='submitApp("MCusername", "email", "q1", "q2", "q3", "q4", "TermsAndService", "discordUser", "discordPin")'>Apply!</button>
+        </ol>
+    </div>
+
+
+
+    <footer>
+        <!--Promotional Div links, discord etc...-->
+        <div class="promoDiv">
+            <div class="promotional">Join Us At:</div>
+            <div class="promoLinks">
+                <a href="mailto:chestly.questcraft@gmail.com" title="chestly.questcraft@gmail.com"><img
+                        src="Logos/Gmail-Logo.png" alt="GoogleMail" /></a>
+                <a href="https://discord.gg/4JwPCxN" target="blank"><img src="Logos/discord-logo.png"
+                        alt="Discord" /></a>
+                <a href="https://www.youtube.com/channel/UCigGxg0kOHJnM_K_kRdYAoA" target="blank"><img
+                        src="Logos/YouTube-icon.png" alt="Youtube" /></a>
+                <a href="https://www.planetminecraft.com/server/questcraft-1-14-3/" target="blank"
+                    title="IP = '192.99.182.8:25684'"><img src="Logos/planetminecraft.png" alt="PMC" /></a>
+            </div>
+        </div>
+        <!--Logo plus License for Website-->
+        <div class="smallContaininglogoDiv">
+            <img class="Logo" src="Logos/QuestCraftLogo.png" alt="Logo" />
+            <span class="logoText">QuestCraft</span>
+        </div>
+        <span>This work is licensed under a <br>Creative Commons Attribution-NonCommercial-<br>NoDerivatives 4.0
+            International License</span>
+    </footer>
+
+</body>
+
+</html>
