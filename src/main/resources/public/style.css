@@ -4,42 +4,51 @@
     padding: 0;
     box-sizing: border-box;
 }
-p{
+
+p {
     font-size: 18px;
 }
-.full-nav{
+
+.full-nav {
     width: 100%;
     background-color: white;
 }
-.nav-bar{
+
+.nav-bar {
     margin: 0 auto;
     width: 1500px;
     height: 100px;
 }
-.logo{
+
+.logo {
     width: 50%;
     float: left;
     margin-top: 15px;
     user-select: none;
 }
-.logo img{
+
+.logo img {
     float: left;
     border-radius: 10px;
 }
-.logo h1{
+
+.logo h1 {
     margin: 11px 0 0 80px;
     font-weight: 300;
 }
-.nav{
+
+.nav {
     width: 50%;
     justify-content: right;
     float: right;
 }
-.nav ul{
+
+.nav ul {
     float: right;
     list-style-type: none;
 }
-.nav ul a{
+
+.nav ul a {
     font-family: 'Montserrat', sans-serif !important;
     float: left;
     height: 100px;
@@ -52,45 +61,55 @@ p{
     cursor: pointer;
     text-decoration: none;
 }
-.nav ul a li{
+
+.nav ul a li {
     color: rgb(119, 118, 118);
     height: 100%;
 }
-.nav ul a:hover li{
+
+.nav ul a:hover li {
     cursor: pointer;
     color: black;
     transition: 0.35s;
 }
-.menu{
+
+.menu {
     display: none;
 }
-.nav .active{ 
-    background-color: rgb(53, 199, 53); 
+
+.nav .active {
+    background-color: rgb(53, 199, 53);
 }
-.nav .active li{ 
+
+.nav .active li {
     color: white;
 }
+
 .nav .active:hover {
     background-color: rgb(48, 180, 48);
     transition: 0.5s;
 }
-.nav .active:hover li{ 
+
+.nav .active:hover li {
     color: white;
 }
-.main{
+
+.main {
     width: 100%;
     height: 300px;
 }
-.main-img{
+
+.main-img {
     height: 300px;
     background-image: url("img/Screenshot_3\ —\ blur.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    
+
 
 }
-.center{
+
+.center {
     position: absolute;
     z-index: 2;
     left: 50%;
@@ -98,14 +117,16 @@ p{
     transform: translate(-50%, -50%);
     user-select: none;
 }
-.title{
+
+.title {
     color: white;
     font-size: 27px;
     width: 100%;
     text-align: center;
     text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
 }
-.desc{
+
+.desc {
     margin-left: 5px;
     color: white;
     display: inline flex;
@@ -114,15 +135,18 @@ p{
     font-size: 23px;
     text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
 }
-.typed-cursor{
+
+.typed-cursor {
     color: white;
     font-size: 25px;
 }
-.news-login{
+
+.news-login {
     width: 1200px;
     margin: 30px auto;
 }
-.login-sector{
+
+.login-sector {
     width: 250px;
     float: right;
     border-radius: 15px;
@@ -130,7 +154,8 @@ p{
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.login-sector h1{
+
+.login-sector h1 {
     text-align: center;
     margin: 35px 20px 15px;
     padding-bottom: 20px;
@@ -139,12 +164,12 @@ p{
     font-weight: 600;
 }
 
-.log-button{
+.log-button {
     text-decoration: none;
     color: white;
     background-color: rgb(53, 199, 53);
     font-size: 30px;
-    font-weight:500;
+    font-weight: 500;
     padding: 10px 0px;
     display: block;
     text-align: center;
@@ -154,15 +179,18 @@ p{
     border: none;
     cursor: pointer;
 }
-.log-button:hover{
+
+.log-button:hover {
     background-color: rgb(48, 180, 48);
     transition: 0.2s;
 }
-.news-sector{
+
+.news-sector {
     float: left;
     width: 900px;
 }
-.news-sector > div{
+
+.news-sector > div {
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 100%;
@@ -170,26 +198,31 @@ p{
     border-radius: 20px;
     margin-bottom: 50px;
 }
-.news-sector > div h1{
+
+.news-sector > div h1 {
     color: rgb(70, 69, 69);
     text-align: center;
     margin: 0 0 15px;
     font-size: 40px;
 }
-.news-sector > div img{
+
+.news-sector > div img {
     width: 100%;
     object-fit: cover;
     height: 250px;
 }
-.news-sector p{
+
+.news-sector p {
     padding: 20px;
     text-align: justify;
-}.news-sector a{
+}
+
+.news-sector a {
     text-decoration: none;
     color: white;
     background-color: rgb(53, 199, 53);
     font-size: 25px;
-    font-weight:500;
+    font-weight: 500;
     padding: 10px 30px;
     text-align: center;
     width: 150px;
@@ -197,77 +230,93 @@ p{
     margin: 0 auto 10px;
     border-radius: 15px;
 }
-.news-sector a:hover{
+
+.news-sector a:hover {
     background-color: rgb(48, 180, 48);
     transition: 0.2s;
 }
-.icons{
+
+.icons {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
 }
-.icon{
+
+.icon {
     width: 50px;
     margin: 5px;
 }
-.icon:hover{
+
+.icon:hover {
     transform: scale(1.2, 1.2);
     transition: 0.2s;
 }
-.footer{
+
+.footer {
     background-color: #282E3E;
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
 }
-.logo-footer{
+
+.logo-footer {
     margin-top: 15px;
     user-select: none;
     margin: 30px 0 30px 60px;
 }
-.logo-footer img{
+
+.logo-footer img {
     float: left;
     border-radius: 10px;
 }
-.logo-footer h1{
+
+.logo-footer h1 {
     margin: 0 0 0 80px;
     font-weight: 500;
     color: white;
 }
-.logo-footer p{
+
+.logo-footer p {
     margin: 2px 0 0 80px;
     font-weight: 500;
     color: white;
 }
-.footer-social{
+
+.footer-social {
     margin: 12px 60px 0 auto;
 }
-.footer-social h1{
+
+.footer-social h1 {
     color: white;
     text-align: center;
 }
-.sector{
+
+.sector {
     width: 1200px;
     margin: 0 auto 30px;
     text-align: center;
     min-height: calc(100vh - 400px - 189px);
 }
-.sector h1{
+
+.sector h1 {
     margin: 35px 0 7px;
     color: rgb(70, 69, 69);
 }
+
 .sector p {
     font-size: 32;
     margin: 10px 0;
 }
-.under-title{
+
+.under-title {
     width: 50px;
     height: 2px;
     margin: 0 auto 20px;
-    background-color:  rgb(53, 199, 53);
+    background-color: rgb(53, 199, 53);
 }
-.info-card{
+
+.info-card {
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 550px;
@@ -275,26 +324,32 @@ p{
     float: left;
     padding: 0 0 10px;
     border-radius: 20px;
-
+    transition: height 0.5s;
+    overflow: hidden;
 }
-.info-card img{
+
+.info-card img {
     width: 100%;
     object-fit: cover;
     height: 200px;
 }
+
 #account img {
     object-fit: contain;
 
 }
-.info-card p{
+
+.info-card p {
     padding: 20px;
     text-align: justify;
-}.info-card a{
+}
+
+.info-card a {
     text-decoration: none;
     color: white;
     background-color: rgb(53, 199, 53);
     font-size: 25px;
-    font-weight:500;
+    font-weight: 500;
     padding: 10px 30px;
     text-align: center;
     width: 150px;
@@ -302,19 +357,22 @@ p{
     margin: 0 auto 10px;
     border-radius: 15px;
 }
-.info-card a:hover{
+
+.info-card a:hover {
     background-color: rgb(48, 180, 48);
     transition: 0.2s;
 }
-.info-card h1{
+
+.info-card h1 {
     margin-bottom: 28px;
 }
-.advanced a{
+
+.advanced a {
     text-decoration: none;
     color: white;
     background-color: rgb(53, 199, 53);
     font-size: 25px;
-    font-weight:500;
+    font-weight: 500;
     padding: 10px 30px;
     text-align: center;
     width: 300px;
@@ -324,60 +382,70 @@ p{
     height: 70px;
     padding-top: 19px;
 }
-.advanced a:hover{
+
+.advanced a:hover {
     background-color: rgb(48, 180, 48);
     transition: 0.2s;
 }
-@media only screen and (max-width: 1501px){
-    .nav-bar{  
+
+@media only screen and (max-width: 1501px) {
+    .nav-bar {
         width: 90%;
         height: 100px;
     }
-    .logo{
+
+    .logo {
         width: 260px;
     }
-    .nav{
+
+    .nav {
         width: auto;
         float: right;
     }
 }
-@media only screen and (max-width: 1250px){
-    .news-login{
+
+@media only screen and (max-width: 1250px) {
+    .news-login {
         width: 1000px;
         margin: 30px auto;
         display: block;
 
     }
-    .news-sector{
+
+    .news-sector {
         float: none;
         width: 900px;
         margin: 0 auto 50px;
     }
-    .login-sector{
+
+    .login-sector {
         width: 900px;
         padding: 1px;
         margin-bottom: 50px;
         float: none;
         margin: 0 auto 50px;
     }
-    .sec{
+
+    .sec {
         width: 50%;
         float: left;
     }
-    
-    .log-button{
+
+    .log-button {
         width: 42%;
         margin: 0 4% 30px;
         float: left;
     }
-    .first-log{
+
+    .first-log {
         width: 45%;
         margin: 10px auto;
         float: none;
     }
 }
-@media only screen and (max-width: 1201px){
-    .menu{
+
+@media only screen and (max-width: 1201px) {
+    .menu {
         display: block;
         float: right;
         margin-top: 33px;
@@ -385,45 +453,54 @@ p{
         user-select: none;
         cursor: pointer;
     }
-    .menu i{
+
+    .menu i {
         font-size: 30px;
         color: rgb(119, 118, 118)
     }
-    .menu i:hover{
+
+    .menu i:hover {
         color: black;
         transition: 0.4s;
     }
-    .nav-bar{
-        margin: 0 auto;    
+
+    .nav-bar {
+        margin: 0 auto;
         height: 100px;
     }
-    .nav-bar{
+
+    .nav-bar {
         width: 100%;
-        
+
     }
-    .logo-menu{
+
+    .logo-menu {
         padding: 0 5%;
         width: 100%;
         height: 90px;
         border-bottom: 0;
     }
-    .nav{
+
+    .nav {
         width: 50%;
         justify-content: right;
         float: right;
         display: none;
     }
-    .nav-mobile{
+
+    .nav-mobile {
         display: flex;
         width: 100%;
-        
+
     }
-    .nav-mobile ul{
+
+    .nav-mobile ul {
         list-style-type: none;
         width: 100%;
 
     }
-    .nav-mobile ul li{
+
+    .nav-mobile ul li {
         height: 50px;
         border-bottom: 1px solid rgba(51, 51, 51, 0.205);
         width: 100%;
@@ -431,148 +508,175 @@ p{
         text-align: center;
         font-size: 25px;
         padding-top: 8px;
-    
+
     }
-    .nav-mobile ul a{
+
+    .nav-mobile ul a {
         text-decoration: none;
         color: rgb(119, 118, 118);
         height: 100%;
     }
-    .nav-mobile ul li:hover a{
+
+    .nav-mobile ul li:hover a {
         cursor: pointer;
         color: black;
         transition: 0.35s;
 
     }
-    .nav-mobile .active li{ 
-        background-color: rgb(53, 199, 53); 
+
+    .nav-mobile .active li {
+        background-color: rgb(53, 199, 53);
         color: white;
     }
+
     .nav-mobile .active:hover li {
-        color: rgb(241, 235, 235); 
+        color: rgb(241, 235, 235);
         cursor: pointer;
         transition: 0.2s;
         background-color: rgb(48, 180, 48);
     }
-    .sector{
+
+    .sector {
         width: 100%;
     }
-    .sector p{
+
+    .sector p {
         margin: 15px;
     }
-    .info-card{
+
+    .info-card {
         margin: 25px auto;
         float: none;
         display: table;
     }
 }
 
-@media only screen and (max-width: 1021px){
-    .news-login{
+@media only screen and (max-width: 1021px) {
+    .news-login {
         width: 100%;
         margin: 30px auto;
         display: block;
     }
-    .news-sector{
+
+    .news-sector {
         width: 90%;
     }
-    .news-sector > div img{
+
+    .news-sector > div img {
         height: 200px;
     }
-    .login-sector{
+
+    .login-sector {
         width: 90%;
         padding: 1px;
         margin-bottom: 50px;
         float: none;
         margin: 0 auto 50px;
     }
-    .sec{
+
+    .sec {
         width: 90%;
         margin: 0 auto;
         float: none;
     }
 }
 
-@media only screen and (max-width: 701px){
-    .footer{
+@media only screen and (max-width: 701px) {
+    .footer {
         background-color: #282E3E;
         width: 100%;
         display: block;
         padding: 1px 0 20px;
     }
-    .logo-footer{
+
+    .logo-footer {
         display: table;
         margin: 30px auto;
-        float:none;
+        float: none;
     }
-    .footer-social{
+
+    .footer-social {
         display: table;
         margin: 30px auto 0;
-        float:none; 
+        float: none;
     }
 }
-@media only screen and (max-width: 621px){
-    .logo-footer{
+
+@media only screen and (max-width: 621px) {
+    .logo-footer {
         margin: 30px auto 10px;
     }
-    .news-sector{
+
+    .news-sector {
         width: 95%;
     }
-    .login-sector{
+
+    .login-sector {
         width: 95%;
         padding: 1px;
         float: none;
         margin: 0 auto 50px;
     }
-    .sec{
+
+    .sec {
         width: 95%;
         margin: 0 auto;
         float: none;
     }
-    .log-button{
+
+    .log-button {
         float: none;
         margin: 20px auto;
         width: 200px;
     }
-    .info-card{
+
+    .info-card {
         width: 90%;
-    }.advanced a{
+    }
+
+    .advanced a {
         width: 200px;
         padding-top: 5px;
     }
 }
+
 label {
     display: block;
     margin: 0 auto;
     font-family: 'Montserrat', sans-serif !important;
 }
+
 input {
     display: block;
     margin: 10px auto;
     border: solid rgb(53, 199, 53) 5px;
-    border-radius:15px;
+    border-radius: 15px;
     height: 3vh;
     min-height: 35px;
     width: 18vw;
     min-width: 200px;
 }
+
 #TermsAndService {
     display: inline-block;
-	text-align: center;
-	min-width: 20px;
-	margin: 15px 0px;
+    text-align: center;
+    min-width: 20px;
+    margin: 15px 0px;
 }
+
 input[type=checkbox] {
-   display: inline-block;
-   width: 30px;
-   height: 25px;
-   vertical-align: middle;
-       position: relative;
-       bottom: 1px;
+    display: inline-block;
+    width: 30px;
+    height: 25px;
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
 }
+
 label[for=TermsAndService] {
     display: inline;
 }
+
 @media only screen and (min-width: 800px) {
     label {
         margin: 20px 0 20px 0;
@@ -580,6 +684,7 @@ label[for=TermsAndService] {
 
     }
 }
+
 @media only screen and (max-width: 801px) {
     label {
         margin: 20px 0 20px 0;
@@ -587,37 +692,46 @@ label[for=TermsAndService] {
 
     }
 }
+
 .hiddenSubmit {
     display: none;
 }
+
 .submit {
+    transition: ease 0.1s;
     width: 9vw;
     min-width: 100px;
 }
+
 .submit:hover {
+    cursor: pointer;
     background-color: rgb(204, 204, 204);
     border-color: rgb(43, 161, 43);
 }
+
 #LoadingGif {
-	position: fixed;
-	width: 7vw;
-	right: 10px;
-	z-index: 2;
-	bottom: 10px;
+    position: fixed;
+    width: 7vw;
+    right: 10px;
+    z-index: 2;
+    bottom: 10px;
 }
+
 textarea {
     display: block;
     margin: 10px auto;
     border: solid rgb(53, 199, 53) 5px;
-    border-radius:15px;
+    border-radius: 15px;
     height: 5vh;
     min-height: 50px;
     width: 18vw;
     min-width: 200px;
 }
+
 #logins {
     display: none;
 }
+
 .account-header img {
     width: 5vw;
     min-width: 150px;
@@ -627,16 +741,52 @@ textarea {
     vertical-align: middle;
     border-radius: 15px;
 }
+
 .account-header h1 {
     display: inline-block;
 }
+
 .account-header {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        margin: 20px 0px;
-        border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 20px 5px;
+    border-radius: 15px;
 }
+
 #disabled {
     background-color: rgb(204, 204, 204);
     pointer-events: none;
     opacity: 05;
+
+}
+
+.fold-out-box {
+    height: 0px;
+    display: none;
+}
+
+.openBoxButton {
+    display: block;
+    margin: 10px auto;
+    border: solid rgb(53, 199, 53) 5px;
+    border-radius: 15px;
+    height: 3vh;
+    min-height: 35px;
+    width: 9vw;
+    min-width: 200px;
+    transition: ease 0.1s;
+}
+
+.openBoxButton:hover {
+    cursor: pointer;
+    background-color: rgb(204, 204, 204);
+    border-color: rgb(43, 161, 43);
+}
+.fold-out-box {
+    transition: height 0.5s;
+}
+#staff .info-card img {
+    object-fit: contain;
+}
+#account .info-card img {
+    object-fit: contain;
 }

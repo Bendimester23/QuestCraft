@@ -18,29 +18,33 @@ window.onload = function () {
             	}
 			//registerTabs[0].innerHTML = '<li><a href = "Account.html" id = "hiddenlink">Account</a></li><li><a href = "logOut.html" id = "hiddenlink">Log Out</a></li>';
 
-//			if (fileName == "Account") {
-//				const dataDiv = document.getElementsByClassName("accountData");
-//				contactServer("getInfo", { UUID: getCookie("UUID") }, function(response) {
-//					console.log(Object.keys(response)[0]);
-//					if (Object.keys(response)[0] == "ErrorClass") {
-//						const message = response[Object.keys(response)[0]].message
-//						const code = response[Object.keys(response)[0]].errorCode;
-//
-//						createDialogue("Invalid User", message, code);
-//					} else if (Object.keys(response)[0] == "Account") {
-//						const name = response[Object.keys(response)[0]].username;
-//						const IGN = response[Object.keys(response)[0]].inGameUser;
-//						const email = response[Object.keys(response)[0]].email;
-//						const pic = response[Object.keys(response)[0]].profilePic;
-//						dataDiv[0].innerHTML += name;
-//						dataDiv[1].innerHTML += IGN;
-//						dataDiv[2].innerHTML += email;
-//						if (pic != null) {
-//							document.getElementById("profilePicture").src = pic;
-//						}
-//					}
-//				});
-//			}
+			if (fileName === "Account" || fileName === "Settings") {
+				const dataDiv = document.getElementsByClassName("accountData");
+				contactServer("getInfo", { UUID: getCookie("UUID") }, function(response) {
+					console.log(Object.keys(response)[0]);
+					if (Object.keys(response)[0] === "ErrorClass") {
+						const message = response[Object.keys(response)[0]].message
+						const code = response[Object.keys(response)[0]].errorCode;
+						createDialogue("Invalid User", message, code);
+					} else if (Object.keys(response)[0] === "Account") {
+						 const name = response[Object.keys(response)[0]].username;
+						 const pic = response[Object.keys(response)[0]].profilePic;
+
+						 const pictureElement = document.getElementById("account-pic");
+						const usernameElement = document.getElementById("account-name");
+
+						usernameElement.innerHTML = name;
+
+						if (pic !== "null") {
+							pictureElement.src = pic;
+						}
+
+						if (pic != null) {
+							document.getElementById("profilePicture").src = pic;
+						}
+					}
+				});
+			}
 		} else {
 			const sideBar = document.getElementsByClassName("login-sector")[0];
             	if (sideBar != undefined) {

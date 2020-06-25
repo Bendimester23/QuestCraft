@@ -126,39 +126,89 @@ public class Main {
                 return objectMapper.writeValueAsString(error);
             }
         });
-        get("/changeUsername", (request, response) -> {
+        get("/changeAccountData", (request, response) -> {
             Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
-            try {
-                String oldUser = account.getUsername();
-                String newUser = request.queryParams("newUser");
-                account.setUsername(newUser);
-                accountUtil.updateAccount(account, oldUser);
-                accountSessions.changeUserFromUUID(newUser, request.queryParams("UUID"));
-                return objectMapper.writeValueAsString("OK");
-            } catch (SQLException ex) {
-                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
-            } catch (InternalError ex) {
-                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+            String field = request.queryParams("field");
+            String value = request.queryParams("value");
+            switch (field.toLowerCase()) {
+                case "username":
+                    try {
+                        String oldUser = account.getUsername();
 
+                        account.setUsername(value);
+                        accountUtil.updateAccount(account, oldUser);
+                        accountSessions.changeUserFromUUID(value, request.queryParams("UUID"));
+                    } catch (InternalError ex) {
+                        return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+
+                    }
+                    break;
+                case "mcuser":
+                    if (!account.getPendingMCUser().equals(value) && !account.getMcUser().equals(value)) {
+                        try {
+                            account.setPendingMCUser(value);
+                            verificationUtil.verifyMinecraft(account);
+                        } catch (InternalError ex) {
+                            return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+                        }
+                    }
+                    break;
+                case "email":
+                    if (!account.getPendingEmail().equals(value) && !account.getEmail().equals(value)) {
+                        try {
+                            account.setPendingEmail(value);
+                            verificationUtil.verifyEmail(account);
+                        } catch (InternalError ex) {
+                            return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+                        }
+                    }
+                    break;
+                case "profilepic":
+                    account.setProfilePic(value);
+                    try {
+                        accountUtil.updateAccount(account, account.getUsername());
+                    } catch (InternalError ex) {
+                        return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+                    }
+                    break;
             }
-
-
+            return objectMapper.writeValueAsString("OK");
         });
-        get("/changeProfilePic", (request, response) -> {
-            try {
-                Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
-                String url = request.queryParams("URL");
-                account.setProfilePic(url);
-                accountUtil.updateAccount(account, account.getUsername());
-                return objectMapper.writeValueAsString("OK");
-            } catch (SQLException ex) {
-                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
-            } catch (InternalError ex) {
-                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
 
-            }
-
-        });
+//
+//        get("/changeUsername", (request, response) -> {
+//            Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
+//            try {
+//                String oldUser = account.getUsername();
+//                String newUser = request.queryParams("newUser");
+//                account.setUsername(newUser);
+//                accountUtil.updateAccount(account, oldUser);
+//                accountSessions.changeUserFromUUID(newUser, request.queryParams("UUID"));
+//                return objectMapper.writeValueAsString("OK");
+//            } catch (SQLException ex) {
+//                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
+//            } catch (InternalError ex) {
+//                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+//
+//            }
+//
+//
+//        });
+//        get("/changeProfilePic", (request, response) -> {
+//            try {
+//                Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
+//                String url = request.queryParams("URL");
+//                account.setProfilePic(url);
+//                accountUtil.updateAccount(account, account.getUsername());
+//                return objectMapper.writeValueAsString("OK");
+//            } catch (SQLException ex) {
+//                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
+//            } catch (InternalError ex) {
+//                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+//
+//            }
+//
+//        });
         get("/verifyDiscord", (request, response) -> {
             String type = request.queryParams("type");
             String user = request.queryParams("user");
@@ -181,7 +231,7 @@ public class Main {
             } catch (SQLException ex) {
                 return objectMapper.writeValueAsString(new ErrorClass("Internal DataBase Error, Please Contact Administration", 1));
             } catch (InternalError ex) {
-                return objectMapper.writeValueAsString(new ErrorClass("Email Failed to Send", 7));
+                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
             }
 
 
@@ -222,7 +272,8 @@ public class Main {
                     links.setApplication(link);
                     links.setAppUser(application.getPendingMCUser());
                 }
-            } catch (SQLException ex) { }
+            } catch (SQLException ex) {
+            }
             try {
                 Account account = accountUtil.getAccount(username);
                 if (account.getMcVerifyCode() != null && !account.getMcVerifyCode().equalsIgnoreCase("NULL")) {
@@ -230,23 +281,24 @@ public class Main {
                     links.setAccount(link);
                     links.setAccountUser(account.getUsername());
                 }
-            } catch (SQLException ex) { }
+            } catch (SQLException ex) {
+            }
             return objectMapper.writeValueAsString(links);
         });
-        get("/addPendingEmail", (request, response) -> {
-            String uuid = request.queryParams("UUID");
-            String email = request.queryParams("email");
-            try {
-                Account account = accountSessions.getUserInfo(uuid);
-                account.setPendingEmail(email);
-                verificationUtil.verifyEmail(account);
-                return objectMapper.writeValueAsString("OK");
-            } catch (AccountException ex) {
-                return new ErrorClass("Incorrect Session UUID", 2);
-            } catch (InternalError internalError) {
-                return new ErrorClass(internalError.getMessage(), internalError.getErrorCode());
-            }
-        });
+//        get("/addPendingEmail", (request, response) -> {
+//            String uuid = request.queryParams("UUID");
+//            String email = request.queryParams("email");
+//            try {
+//                Account account = accountSessions.getUserInfo(uuid);
+//                account.setPendingEmail(email);
+//                verificationUtil.verifyEmail(account);
+//                return objectMapper.writeValueAsString("OK");
+//            } catch (AccountException ex) {
+//                return new ErrorClass("Incorrect Session UUID", 2);
+//            } catch (InternalError internalError) {
+//                return new ErrorClass(internalError.getMessage(), internalError.getErrorCode());
+//            }
+//        });
 
         get("/verifyEmail", (request, response) -> {
             String type = request.queryParams("type");

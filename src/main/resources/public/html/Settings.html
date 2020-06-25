@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="keywords" content="minecraft smp, QuestCraft, best smp"/>
+
+    <title>QuestCraft</title>
+
+    <script src="../js/Account.js"></script>
+    <script src="../js/DOCLoader.js"></script>
+    <script src="../js/Cookies.js"></script>
+    <script src="../js/popupText.js"></script>
+    <script src="../js/HTMLElements.js"></script>
+
+    <link rel="icon" type="image/png" href="../img/QuestCraftLogo.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="../style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+
+</head>
+
+<body>
+<div class="full-nav">
+    <div class="nav-bar" id="nav-bar">
+        <div class="logo-menu" id="logo-menu">
+            <div class="logo">
+                <img src="../img/QuestCraftLogo.png" alt="Questcraft logo">
+                <h1>QuestCraft</h1>
+            </div>
+            <div class="menu" id="nav-mobile"><i class="fas fa-bars"></i></div>
+        </div>
+        <div class="nav" id="nav">
+            <ul>
+
+                <a href="../index.html">
+                    <li>Home</li>
+                </a>
+                <a class="active" href="../html/Games.html">
+                    <li>Games</li>
+                </a>
+                <a href="../html/Rules.html">
+                    <li>Rules</li>
+                </a>
+                <a href="../html/Staff.html">
+                    <li>Staff</li>
+                </a>
+                <a href="../html/About.html">
+                    <li>About</li>
+                </a>
+                <a href="../html/Apply.html">
+                    <li>Apply!</li>
+                </a>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="center" id="center">
+        <div class="title">
+            <h1>Account Settings</h1>
+        </div>
+    </div>
+    <div class="main-img"></div>
+</div>
+<!--Content-->
+<div class="sector">
+    <div class="account-header">
+        <img id="account-pic" src="../img/AccountPics/userIcon.png"/>
+        <h1 id="account-name"></h1>
+    </div>
+    <hr>
+    <div id="account-settings">
+        <div class="info-card">
+            <h1>Email</h1>
+            <p>Change your QuestCraft Account Email!</p>
+            <button class="openBoxButton" onclick="openDialogue('auto', 'changeEmail', 'fold-out-box', 0)">
+                Add or Change your email
+            </button>
+            <div class="fold-out-box">
+                <form>
+                    <label for="newEmail">Email:</label>
+                    <p>Make sure to check your emails as a verification will be sent to you on completion!</p>
+                    <input type="email" id="newEmail" required>
+                    <input type="submit" class="hiddenSubmit">
+                    <input type="button" value="Submit" onclick="changeEmail('newEmail')" class="submit"/>
+                </form>
+                <!--                <button class="dialogueSubmit" onclick="changeEmail('newEmail')">Submit</button>-->
+            </div>
+        </div>
+    </div>
+    <div class="info-card">
+        <h1>Username</h1>
+        <p>Change your QuestCraft Account Username!</p>
+        <button class="openBoxButton" onclick="openDialogue('auto', 'changeUsername', 'fold-out-box', 1)">
+            Change your username
+        </button>
+        <div class="fold-out-box">
+            <form>
+                <label for="newUser">Username:</label>
+                <input type="text" id="newUser" required>
+                <input type="submit" class="hiddenSubmit">
+                <input type="button" value="Submit" onclick="changeUserName('newUser')" class="submit"/>
+            </form>
+            <!--                <button class="dialogueSubmit" onclick="changeEmail('newEmail')">Submit</button>-->
+        </div>
+    </div>
+    <div class="info-card">
+        <h1>Password</h1>
+        <p>Change your QuestCraft Account Password!</p>
+        <button class="openBoxButton" onclick="openDialogue('auto', 'changePassword', 'fold-out-box', 2)">
+            Change your password
+        </button>
+        <div class="fold-out-box">
+            <form>
+                <label for="oldPassword">Old Password:</label>
+                <input type="password" id="oldPassword" required minlength="6" maxlength="128">
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword" required minlength="6" maxlength="128">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" required minlength="6" maxlength="128">
+                <input type="submit" class="hiddenSubmit">
+                <input type="button" value="Submit" onclick="changePassword('newPassword', 'oldPassword', 'confirmPassword')" class="submit"/>
+            </form>
+            <!--                <button class="dialogueSubmit" onclick="changeEmail('newEmail')">Submit</button>-->
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h1>Minecraft User</h1>
+        <p>Change your QuestCraft Minecraft User!</p>
+        <button class="openBoxButton" onclick="openDialogue('auto', 'changeMcUser', 'fold-out-box', 3)">
+            Add or change your Minecraft User
+        </button>
+        <div class="fold-out-box">
+            <form>
+                <label for="newMcUser">Minecraft User:</label>
+                <p>Make sure to join mc.questcraft.net as a verification will be sent to you ingame!</p>
+                <input type="text" id="newMcUser" required>
+                <input type="submit" class="hiddenSubmit">
+                <input type="button" value="Submit" onclick="changeMcUser('newMcUser')" class="submit"/>
+            </form>
+            <!--                <button class="dialogueSubmit" onclick="changeEmail('newEmail')">Submit</button>-->
+        </div>
+    </div>
+    <div class="info-card">
+        <h1>Profile Picture</h1>
+        <p>Change your QuestCraft Profile Picture!</p>
+        <button class="openBoxButton" onclick="openDialogue('auto', 'changeProfilePic', 'fold-out-box', 4)">
+            Add or change your Profile Pic
+        </button>
+        <div class="fold-out-box">
+            <form>
+                <label for="profilePic">Picture URL:</label>
+                <input type="text" id="profilePic" required>
+                <input type="submit" class="hiddenSubmit">
+                <input type="button" value="Submit" onclick="changePic('profilePic')" class="submit"/>
+            </form>
+            <!--                <button class="dialogueSubmit" onclick="changeEmail('newEmail')">Submit</button>-->
+        </div>
+    </div>
+</div>
+</div>
+<div class="footer">
+
+    <div class="footer-social">
+        <h1>Socialmedia</h1>
+        <div class="icons">
+            <a target="_blank" href="https://discord.gg/4JwPCxN"><img class="icon"
+                                                                      src="../img/Socialmedia/discord_101785.png"></a>
+            <a target="_blank" href="https://www.youtube.com/channel/UCigGxg0kOHJnM_K_kRdYAoA"><img class="icon"
+                                                                                                    src="../img/Socialmedia/youtube_101764.png"></a>
+            <a target="_blank" href="mailto:chestly.questcraft@gmail.com"><img class="icon"
+                                                                               src="../img/Socialmedia/1486564396-mail_81524.png"></a>
+            <a target="_blank" href="https://www.planetminecraft.com/server/questcraft-1-14-3/"><img class="icon"
+                                                                                                     src="../img/Socialmedia/vote_pmc.png"></a>
+        </div>
+    </div>
+    <div class="logo-footer">
+        <img src="../img/QuestCraftLogo.png" alt="Questcraft logo">
+        <h1>QuestCraft</h1>
+        <p>© Questcraft 2020</p>
+    </div>
+</div>
+<script src="../nav.js"></script>
+</body>
+
+</html>

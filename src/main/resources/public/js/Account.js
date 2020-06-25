@@ -38,9 +38,10 @@ function changeUserName(username) {
         form.getElementsByClassName("hiddenSubmit")[0].click();
     } else {
         loadingOn();
-        contactServer("changeUsername", {"newUser": newUser.value, "UUID": getCookie("UUID")}, function(response) {
+        contactServer("changeAccountData", {"field": "username", "value": newUser.value, "UUID": getCookie("UUID")}, function(response) {
             loadingOff();
             if (Object.keys(response)[0] == "String") {
+                window.location.reload();
                 createDialogue("Username Change", "Successfully Changed your username!");
             } else {
                 const message = response[Object.keys(response)[0]].message;
@@ -57,7 +58,7 @@ function changeEmail(email) {
         form.getElementsByClassName("hiddenSubmit")[0].click();
     } else {
         loadingOn();
-        contactServer("addPendingEmail", {"UUID": getCookie("UUID"), "email": newEmail.value}, function(response) {
+        contactServer("changeAccountData", {"field": "email", "UUID": getCookie("UUID"), "value": newEmail.value}, function(response) {
             loadingOff();
             if (Object.keys(response)[0] == "String") {
                 createDialogue("Verifying Email", "Sent confirmation code to '" + newEmail.value + "'", null);
@@ -76,9 +77,10 @@ function changePic(pic) {
         form.getElementsByClassName("hiddenSubmit")[0].click();
     } else {
         loadingOn();
-        contactServer("changeProfilePic", {"UUID": getCookie("UUID"), "URL": newPic.value}, function(response) {
+        contactServer("changeAccountData", {"field": "profilePic", "UUID": getCookie("UUID"), "value": newPic.value}, function(response) {
             loadingOff();
             if (Object.keys(response)[0] == "String") {
+                window.location.reload();
                 createDialogue("Picture Changed", "Your Profile Picture has Been Changed", null);
                 document.getElementById("profilePicture").src = newPic.value;
             } else {
@@ -89,4 +91,23 @@ function changePic(pic) {
         });
     }
 }
-
+function changeMcUser(mcUser) {
+    const newMcUser = document.getElementById(mcUser);
+    const form = newMcUser.parentElement;
+    if (!form.checkValidity()) {
+        form.getElementsByClassName("hiddenSubmit")[0].click();
+    } else {
+        loadingOn();
+        contactServer("changeAccountData", {"field": "mcUser", "UUID": getCookie("UUID"), "value": newMcUser.value}, function(response) {
+            loadingOff();
+            if (Object.keys(response)[0] == "String") {
+                createDialogue("Verifying Mc User", "A verification code will be sent Ingame! Thanks for verifying!", null);
+                document.getElementById("profilePicture").src = newPic.value;
+            } else {
+                const message = response[Object.keys(response)[0]].message;
+                const code = response[Object.keys(response)[0]].errorCode;
+                createDialogue("Error", message, code);
+            }
+        });
+    }
+}
