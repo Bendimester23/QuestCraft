@@ -9,11 +9,14 @@ import net.questcraft.errors.ErrorClass;
 import net.questcraft.errors.InternalError;
 import net.questcraft.joinapp.Application;
 import net.questcraft.joinapp.ApplicationUtil;
+import net.questcraft.news.NewsLoader;
 import net.questcraft.verifier.VerificationUtil;
 import net.questcraft.verifier.minecraft.MCReturnableLinks;
 
 import javax.security.auth.login.AccountException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.List;
 
 import static com.fasterxml.jackson.databind.SerializationFeature.WRAP_ROOT_VALUE;
 import static spark.Spark.*;
@@ -63,6 +66,7 @@ public class Main {
             Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
             String oldPassword = accountUtil.hashPassword(request.queryParams("oldP"));
             String newPassword = accountUtil.hashPassword(request.queryParams("newP"));
+            System.out.println("sfsdgsdhfd");
             if (account.getPassword().equals(oldPassword)) {
                 account.setPassword(newPassword);
                 try {
@@ -175,40 +179,40 @@ public class Main {
             return objectMapper.writeValueAsString("OK");
         });
 
-//
-//        get("/changeUsername", (request, response) -> {
-//            Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
-//            try {
-//                String oldUser = account.getUsername();
-//                String newUser = request.queryParams("newUser");
-//                account.setUsername(newUser);
-//                accountUtil.updateAccount(account, oldUser);
-//                accountSessions.changeUserFromUUID(newUser, request.queryParams("UUID"));
-//                return objectMapper.writeValueAsString("OK");
-//            } catch (SQLException ex) {
-//                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
-//            } catch (InternalError ex) {
-//                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
-//
-//            }
-//
-//
-//        });
-//        get("/changeProfilePic", (request, response) -> {
-//            try {
-//                Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
-//                String url = request.queryParams("URL");
-//                account.setProfilePic(url);
-//                accountUtil.updateAccount(account, account.getUsername());
-//                return objectMapper.writeValueAsString("OK");
-//            } catch (SQLException ex) {
-//                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
-//            } catch (InternalError ex) {
-//                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
-//
-//            }
-//
-//        });
+
+        get("/changeUsername", (request, response) -> {
+            Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
+            try {
+                String oldUser = account.getUsername();
+                String newUser = request.queryParams("newUser");
+                account.setUsername(newUser);
+                accountUtil.updateAccount(account, oldUser);
+                accountSessions.changeUserFromUUID(newUser, request.queryParams("UUID"));
+               return objectMapper.writeValueAsString("OK");
+            } catch (SQLException ex) {
+                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
+            } catch (InternalError ex) {
+                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+
+            }
+
+
+        });
+        get("/changeProfilePic", (request, response) -> {
+            try {
+                Account account = accountSessions.getUserInfo(request.queryParams("UUID"));
+                String url = request.queryParams("URL");
+                account.setProfilePic(url);
+                accountUtil.updateAccount(account, account.getUsername());
+                return objectMapper.writeValueAsString("OK");
+            } catch (SQLException ex) {
+                return objectMapper.writeValueAsString(new ErrorClass("DataBase Malfunction, Please try again later", 1));
+            } catch (InternalError ex) {
+                return objectMapper.writeValueAsString(new ErrorClass(ex.getMessage(), ex.getErrorCode()));
+
+            }
+
+        });
         get("/verifyDiscord", (request, response) -> {
             String type = request.queryParams("type");
             String user = request.queryParams("user");
@@ -380,6 +384,16 @@ public class Main {
                 return objectMapper.writeValueAsString("OK");
             } else {
                 return objectMapper.writeValueAsString(new ErrorClass("Sorry, were currently in Production mode and this feature is not available", 17));
+            }
+        });
+        NewsLoader loader = new NewsLoader();
+        get("/news", (request, response) -> {
+            try {
+                List<NewsLoader.New> news = loader.getNews();
+                return objectMapper.writeValueAsString(news);
+            } catch (IllegalAccessException | SQLException | InvocationTargetException e) {
+                e.printStackTrace();
+                return objectMapper.writeValueAsString("Error getting news");
             }
         });
 

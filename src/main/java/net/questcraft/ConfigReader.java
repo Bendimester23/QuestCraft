@@ -43,6 +43,8 @@ public class ConfigReader {
 
         }catch (IOException ex) {
             System.out.println("Got IOExeption ex: " + ex.getMessage());
+        }catch (NullPointerException e) {
+            System.out.println("Null pointer. "+e.getMessage());
         }
         return false;
     }
